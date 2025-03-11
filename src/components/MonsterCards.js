@@ -29,7 +29,7 @@ const MonsterCards = ({ monsters }) => {
     };
 
     return (
-        <Grid2 container spacing={3}>
+        <Grid2 container spacing={3} justifyContent="center">
             {monsters.map((monster, index) => {
                 const typeColor = getTypeColor(monster.type); // Получаем цвет типа
 

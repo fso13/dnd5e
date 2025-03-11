@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, List, ListItem, ListItemText, IconButton, TextField, Button, Paper, Divider, Chip } from '@mui/material';
+import { Box, Typography, Grid2, ListItem, ListItemText, IconButton, TextField, Button, Paper, Divider, Chip } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
@@ -33,16 +33,17 @@ const BookmarksPage = () => {
     };
 
     return (
-        <Box sx={{ padding: 3, maxWidth: 800, margin: '0 auto' }}>
+        <Box sx={{ padding: 3, margin: '0 auto' }}>
             <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3 }}>
                 Закладки
             </Typography>
-            <List>
+            <Grid2 container spacing={3}>
                 {bookmarks.map(bookmark => (
                     <Paper
                         key={bookmark.id}
                         elevation={3}
                         sx={{
+                            maxWidth: 400,
                             mb: 3,
                             padding: 2,
                             transition: 'transform 0.2s, box-shadow 0.2s',
@@ -113,7 +114,7 @@ const BookmarksPage = () => {
                         </Button>
                     </Paper>
                 ))}
-            </List>
+            </Grid2>
         </Box>
     );
 };

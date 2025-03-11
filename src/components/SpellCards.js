@@ -35,7 +35,7 @@ const SpellCards = ({ spells }) => {
     };
 
     return (
-        <Grid2 container spacing={3}>
+        <Grid2 container spacing={3} justifyContent="center">
             {spells.map((spell, index) => {
                 const schoolColor = getSchoolColor(spell.school); // Получаем цвет школы
 
