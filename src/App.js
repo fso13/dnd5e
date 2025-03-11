@@ -18,12 +18,12 @@ function App() {
     const fetchData = async () => {
       try {
         // Загрузка заклинаний
-        const spellsResponse = await fetch('/data/spells.json');
+        const spellsResponse = await fetch(`${process.env.PUBLIC_URL}/data/spells.json`);
         const spellsData = await spellsResponse.json();
         setSpells(spellsData);
 
         // Загрузка монстров
-        const monstersResponse = await fetch('/data/monsters.json');
+        const monstersResponse = await fetch(`${process.env.PUBLIC_URL}/data/monsters.json`);
         const monstersData = await monstersResponse.json();
         setMonsters(monstersData);
 
