@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IconButton, Tooltip } from '@mui/material';
-import { Bookmark, BookmarkBorder } from '@mui/icons-material';
+import { BookmarkBorder } from '@mui/icons-material';
 import BookmarkModal from './BookmarkModal';
 
 const BookmarkButton = ({ spell }) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormControl, InputLabel, Select, MenuItem, Box, ListItemText, Collapse } from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem, Box, Collapse } from '@mui/material';
 
 const SpellFilter = ({ filters, setFilters, isFiltersVisible }) => {
     const handleChange = (event) => {

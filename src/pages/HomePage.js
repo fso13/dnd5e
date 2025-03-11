@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tabs, Tab, Box } from '@mui/material';
+import { Box } from '@mui/material';
 import SpellCards from '../components/SpellCards';
 import SpellFilter from '../components/SpellFilter';
 import SpellSearch from '../components/SpellSearch';

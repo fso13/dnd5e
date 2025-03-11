@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Box, Typography, Button, TextField, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 
 const BookmarkModal = ({ open, onClose, onAddToBookmark, spell }) => {
-    const [bookmarks, setBookmarks] = useState(JSON.parse(localStorage.getItem('bookmarks')) || []);
+    const [bookmarks] = useState(JSON.parse(localStorage.getItem('bookmarks')) || []);
     const [selectedBookmark, setSelectedBookmark] = useState('');
     const [newBookmarkName, setNewBookmarkName] = useState('');
 
