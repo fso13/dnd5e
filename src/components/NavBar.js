@@ -14,8 +14,9 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom'; // Добавляем Link для маршрутизации
 import MenuIcon from '@mui/icons-material/Menu';
-import GamesIcon from '@mui/icons-material/SportsEsports';
-import PostsIcon from '@mui/icons-material/Article';
+import BookIcon from '@mui/icons-material/Book';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import Diversity3Icon from '@mui/icons-material/Diversity3';
 import ThemeToggle from './ThemeToggle'; // Компонент для переключения темы
 
 const NavBar = () => {
@@ -33,9 +34,9 @@ const NavBar = () => {
 
   // Пункты меню
   const menuItems = [
-    { text: 'Заклинания', icon: <GamesIcon />, path: '/spells' },
-    { text: 'Закладки', icon: <PostsIcon />, path: '/bookmarks' },
-    { text: 'Бестиарий', icon: <PostsIcon />, path: '/bestiary' },
+    { text: 'Заклинания', icon: <BookIcon />, path: '/spells' },
+    { text: 'Бестиарий', icon: <Diversity3Icon />, path: '/bestiary' },
+    { text: 'Закладки', icon: <BookmarkIcon />, path: '/bookmarks' },
   ];
 
   return (
