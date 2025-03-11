@@ -57,7 +57,7 @@ const NavBar = () => {
             </IconButton>
           )}
           {/* Иконка приложения и название сайта */}
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={event =>  window.location.href='/'}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={event =>  window.location.href='/dnd5e'}>
             Бардовский университет v2.0
           </Typography>
           {/* Пункты меню для десктопной версии */}

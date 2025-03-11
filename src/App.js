@@ -13,33 +13,48 @@ function App() {
   const [monsters, setMonsters] = useState([]); // Состояние для монстров
   const [isLoading, setIsLoading] = useState(true); // Состояние для загрузки
 
-  // Загрузка данных из JSON-файлов
+  // Ключи для localStorage
+  const SPELLS_KEY = 'cached_spells';
+  const MONSTERS_KEY = 'cached_monsters';
+
+  // Загрузка данных из JSON-файлов или кэша
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Загрузка заклинаний
-        const spellsResponse = await fetch(`${process.env.PUBLIC_URL}/data/spells.json`);
-        const spellsData = await spellsResponse.json();
-        setSpells(spellsData);
+      const fetchData = async () => {
+          try {
+              // Проверяем, есть ли данные в кэше
+              const cachedSpells = localStorage.getItem(SPELLS_KEY);
+              const cachedMonsters = localStorage.getItem(MONSTERS_KEY);
 
-        // Загрузка монстров
-        const monstersResponse = await fetch(`${process.env.PUBLIC_URL}/data/monsters.json`);
-        const monstersData = await monstersResponse.json();
-        setMonsters(monstersData);
+              if (cachedSpells && cachedMonsters) {
+                  // Если данные есть в кэше, используем их
+                  setSpells(JSON.parse(cachedSpells));
+                  setMonsters(JSON.parse(cachedMonsters));
+              } else {
+                  // Если данных нет в кэше, загружаем их с сервера
+                  const spellsResponse = await fetch(`${process.env.PUBLIC_URL}/data/spells.json`);
+                  const spellsData = await spellsResponse.json();
+                  setSpells(spellsData);
+                  localStorage.setItem(SPELLS_KEY, JSON.stringify(spellsData)); // Кэшируем заклинания
 
-        setIsLoading(false); // Загрузка завершена
-      } catch (error) {
-        console.error('Ошибка при загрузке данных:', error);
-        setIsLoading(false); // Загрузка завершена с ошибкой
-      }
-    };
+                  const monstersResponse = await fetch(`${process.env.PUBLIC_URL}/data/monsters.json`);
+                  const monstersData = await monstersResponse.json();
+                  setMonsters(monstersData);
+                  localStorage.setItem(MONSTERS_KEY, JSON.stringify(monstersData)); // Кэшируем монстров
+              }
 
-    fetchData();
+              setIsLoading(false); // Загрузка завершена
+          } catch (error) {
+              console.error('Ошибка при загрузке данных:', error);
+              setIsLoading(false); // Загрузка завершена с ошибкой
+          }
+      };
+
+      fetchData();
   }, []);
 
   // Отображение загрузки
   if (isLoading) {
-    return <div>Загрузка...</div>;
+      return <div>Загрузка...</div>;
   }
 
   return (
