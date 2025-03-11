@@ -1,5 +1,6 @@
 {
     "name": "board-games-app",
+    "homepage": "https://fso13.github.io/dnd5e",
     "version": "1.0.0",
     "private": true,
     "dependencies": {
