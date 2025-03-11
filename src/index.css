@@ -1,0 +1,9 @@
+/* Глобальные стили для карточек */
+.MuiPaper-root {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.MuiCardContent-root {
+    padding: 16px;
+}
