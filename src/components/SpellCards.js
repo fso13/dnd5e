@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, Typography, Grid2, Paper, Divider, Chip, Stack, Pagination } from '@mui/material';
+import { Card, CardContent, CardHeader, Typography, Grid2, Paper, Divider, Chip, Stack, Pagination, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import BookmarkButton from '../components/BookmarkButton';
 
@@ -60,6 +60,7 @@ const SpellCards = ({ spells }) => {
 
                         >
                             <Card sx={{ height: '100%' }}>
+                                <Box sx={{ width: 300, height: 300, overflow: 'hidden', position: 'relative' }}>
                                 <CardHeader
 
                                     title={spell.name}
@@ -97,6 +98,7 @@ const SpellCards = ({ spells }) => {
                                         <strong>Классы:</strong> {spell.spellClass.map(cls => cls.name).join(', ')}
                                     </Typography>
                                 </CardContent>
+                                </Box>
                             </Card>
                         </Paper>
                     </Grid2>)
