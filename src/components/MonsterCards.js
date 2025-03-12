@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { Card, CardMedia, CardContent, Typography, Grid2, Paper, Divider, Chip, Box, Pagination } from '@mui/material';
+import React from 'react';
+import { Card, CardMedia, CardContent, Typography, Grid2, Paper, Divider, Chip, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 // Функция для получения цвета типа монстра
@@ -23,13 +23,6 @@ const getTypeColor = (type) => {
 const MonsterCards = ({ monsters }) => {
     const navigate = useNavigate();
 
-    const [page, setPage] = useState(1);
-    const itemsPerPage = 28; // Количество заклинаний на странице
-    const totalPages = Math.ceil(monsters.length / itemsPerPage);
-
-    const startIndex = (page - 1) * itemsPerPage;
-    const visibleMonster = monsters.slice(startIndex, startIndex + itemsPerPage);
-
     // Обработчик клика по карточке
     const handleCardClick = (monsterName) => {
         navigate(`/bestiary/${monsterName}`);
@@ -38,7 +31,7 @@ const MonsterCards = ({ monsters }) => {
     return (
         <div>
             <Grid2 container spacing={3} justifyContent="center">
-                {visibleMonster.map((monster, index) => {
+                {monsters.map((monster, index) => {
                     const typeColor = getTypeColor(monster.type); // Получаем цвет типа
 
                     return (
@@ -107,12 +100,6 @@ const MonsterCards = ({ monsters }) => {
                     );
                 })}
             </Grid2>
-            <Pagination
-                count={totalPages}
-                page={page}
-                onChange={(event, value) => setPage(value)}
-                sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}
-            />
         </div>
     );
 };

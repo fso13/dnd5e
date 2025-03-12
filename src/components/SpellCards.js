@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, Typography, Grid2, Paper, Divider, Chip, Stack, Pagination, Box } from '@mui/material';
+import React from 'react';
+import { Card, CardContent, CardHeader, Typography, Grid2, Paper, Divider, Chip, Stack, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import BookmarkButton from '../components/BookmarkButton';
 
@@ -28,12 +28,6 @@ const getSchoolColor = (school) => {
 
 const SpellCards = ({ spells }) => {
     const navigate = useNavigate();
-    const [page, setPage] = useState(1);
-    const itemsPerPage = 28; // Количество заклинаний на странице
-    const totalPages = Math.ceil(spells.length / itemsPerPage);
-
-    const startIndex = (page - 1) * itemsPerPage;
-    const visibleSpells = spells.slice(startIndex, startIndex + itemsPerPage);
 
     // Обработчик клика по карточке
     const handleCardClick = (spellName) => {
@@ -43,7 +37,7 @@ const SpellCards = ({ spells }) => {
     return (
         <div>
             <Grid2 container spacing={3} justifyContent="center">
-                {visibleSpells.map((spell, index) => {
+                {spells.map((spell, index) => {
                     const schoolColor = getSchoolColor(spell.school); // Получаем цвет школы
 
                     return (<Grid2 item key={index} xs={12} sm={6} md={4}>
@@ -104,12 +98,7 @@ const SpellCards = ({ spells }) => {
                     </Grid2>)
                 })}
             </Grid2>
-            <Pagination
-                count={totalPages}
-                page={page}
-                onChange={(event, value) => setPage(value)}
-                sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}
-            />
+            
         </div>
     );
 };
