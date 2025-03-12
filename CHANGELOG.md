@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/fso13/dnd5e/compare/v1.5.0...v1.6.0) (2025-03-12)
+
+
+### 🐛 Fixes
+
+* close [#2](https://github.com/fso13/dnd5e/issues/2) ([7c67689](https://github.com/fso13/dnd5e/commit/7c67689b704448639adc6e67537d2597ee997780))
+* close [#4](https://github.com/fso13/dnd5e/issues/4) ([f2e5d3c](https://github.com/fso13/dnd5e/commit/f2e5d3cd9081713cbb8c1ae4153de4c0733d936e))
+* close [#5](https://github.com/fso13/dnd5e/issues/5) ([f15b617](https://github.com/fso13/dnd5e/commit/f15b61728e7e80bc79c095cd12ff8ae236d14148))
+* close [#8](https://github.com/fso13/dnd5e/issues/8) ([8b57bcc](https://github.com/fso13/dnd5e/commit/8b57bcca106d269bee0c5e419d921264a74bfb0f))
+
 ## [1.5.0](https://github.com/fso13/dnd5e/compare/v1.4.0...v1.5.0) (2025-03-12)
 
 
