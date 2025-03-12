@@ -3,6 +3,28 @@ import { useParams } from 'react-router-dom';
 import { Box, Typography, Paper, Divider, Chip, Stack } from '@mui/material';
 import BookmarkButton from '../components/BookmarkButton';
 
+// Функция для получения цвета школы магии
+const getSchoolColor = (school) => {
+    switch (school) {
+        case 'Вызов':
+            return 'primary'; // Синий
+        case 'Иллюзия':
+            return 'secondary'; // Фиолетовый
+        case 'Ограждение':
+            return 'success'; // Зеленый
+        case 'Некромантия':
+            return 'error'; // Красный
+        case 'Преобразование':
+            return 'warning'; // Оранжевый
+        case 'Очарование':
+            return 'info'; // Голубой
+        case 'Прорицание':
+            return 'default'; // Серый
+        default:
+            return 'default'; // По умолчанию
+    }
+};
+
 const SpellDetailPage = ({ spells }) => {
     const { spellName } = useParams(); // Получаем имя заклинания из URL
     const spell = spells.find(spell => spell.name === spellName); // Находим заклинание по имени
@@ -24,7 +46,7 @@ const SpellDetailPage = ({ spells }) => {
 
                 {/* Основная информация */}
                 <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-                    <Chip label={`Школа: ${spell.school}`} color="primary" />
+                    <Chip label={`Школа: ${spell.school}`} color={getSchoolColor(spell.school)} />
                     <Chip label={`Уровень: ${spell.level}`} color="secondary" />
                 </Stack>
 

@@ -2,6 +2,24 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Typography, Paper, Divider, Chip, CardMedia } from '@mui/material';
 
+// Функция для получения цвета типа монстра
+const getTypeColor = (type) => {
+    switch (type) {
+        case 'гуманоид':
+            return 'primary'; // Синий
+        case 'зверь':
+            return 'secondary'; // Фиолетовый
+        case 'нежить':
+            return 'error'; // Красный
+        case 'дракон':
+            return 'warning'; // Оранжевый
+        case 'элементаль':
+            return 'info'; // Голубой
+        default:
+            return 'default'; // Серый
+    }
+};
+
 const MonsterDetailPage = ({ monsters }) => {
     const { monsterName } = useParams(); // Получаем имя монстра из URL
     const monster = monsters.find(monster => monster.name === monsterName); // Находим монстра по имени
@@ -24,7 +42,7 @@ const MonsterDetailPage = ({ monsters }) => {
 
                     {/* Метка "Дополнение" */}
                     <Chip
-                        label={monster.type} color="primary"
+                        label={monster.type} color={getTypeColor(monster.type)}
                         sx={{ position: 'absolute', top: 10, right: 10 }}
                     />
                 </Box>
