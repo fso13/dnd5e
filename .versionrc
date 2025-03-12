@@ -1,0 +1,16 @@
+{
+  "types": [
+    { "type": "feat", "section": "## 🚀 Features" },
+    { "type": "fix", "section": "## 🐛 Fixes" },
+    { "type": "chore", "section": "## 🔧 Chores" },
+    { "type": "docs", "section": "## 📚 Documentation" },
+    { "type": "style", "section": "## 😎 Code Style" },
+    { "type": "ci", "section": "## ⚙️ CI" },
+    { "type": "refactor", "section": "## 🛠️ Code Refactoring" },
+    { "type": "perf", "section": "## 🎫 Performance Improvements" },
+    { "type": "test", "section": "## 🧪 Tests" }
+  ],
+  "commitUrlFormat": "https://github.com/{{owner}}/{{repository}}/commit/{{hash}}",
+  "compareUrlFormat": "https://github.com/{{owner}}/{{repository}}/compare/{{previousTag}}...{{currentTag}}",
+  "issueUrlFormat": "https://github.com/{{owner}}/{{repository}}/issues/{{id}}"
+}
