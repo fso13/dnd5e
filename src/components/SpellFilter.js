@@ -25,6 +25,7 @@ const SpellFilter = ({ filters, setFilters, isFiltersVisible }) => {
                         <MenuItem value="Чародей">Чародей</MenuItem>
                         <MenuItem value="Колдун">Колдун</MenuItem>
                         <MenuItem value="Волшебник">Волшебник</MenuItem>
+                        <MenuItem value="Изобретатель">Изобретатель</MenuItem>
                     </Select>
                 </FormControl>
                 <FormControl fullWidth size="small">
