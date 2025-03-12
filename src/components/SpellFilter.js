@@ -15,6 +15,7 @@ const SpellFilter = ({ filters, setFilters, isFiltersVisible }) => {
                         name="class"
                         value={filters.class}
                         onChange={handleChange}
+                        label="Класс"
                     >
                         <MenuItem value="Жрец">Жрец</MenuItem>
                         <MenuItem value="Друид">Друид</MenuItem>
@@ -32,6 +33,7 @@ const SpellFilter = ({ filters, setFilters, isFiltersVisible }) => {
                         name="level"
                         value={filters.level}
                         onChange={handleChange}
+                        label="Уровень"
                     >
                         <MenuItem value="0">0</MenuItem>
                         <MenuItem value="1">1</MenuItem>
