@@ -97,7 +97,19 @@ const BookmarksPage = () => {
                                     key={index}
                                     label={spell.name}
                                     component={Link}
-                                    to={`/spell/${spell.nameEn}`}
+                                    to={`/spells/${spell.name}`}
+                                    clickable
+                                    sx={{ mb: 1 }}
+                                />
+                            ))}
+                        </Box>
+                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                            {bookmark.monsters.map((monster, index) => (
+                                <Chip
+                                    key={index}
+                                    label={monster.name}
+                                    component={Link}
+                                    to={`/bestiary/${monster.name}`}
                                     clickable
                                     sx={{ mb: 1 }}
                                 />
