@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Typography,Divider } from '@mui/material';
+import { Box, Typography, Divider } from '@mui/material';
 import SpellCards from '../components/SpellCards';
 import MonsterCards from '../components/MonsterCards';
 const BookmarkDetailPage = () => {
