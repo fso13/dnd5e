@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/fso13/dnd5e/compare/v1.8.0...v1.9.0) (2025-03-13)
+
+
+### 🚀 Features
+
+* закладки переписаны. closes [#11](https://github.com/fso13/dnd5e/issues/11), [#9](https://github.com/fso13/dnd5e/issues/9) ([e2a3b63](https://github.com/fso13/dnd5e/commit/e2a3b637f9bd481dabf679b58463f9b55ae93a09))
+
+
+### 🐛 Fixes
+
+* close [#12](https://github.com/fso13/dnd5e/issues/12) ([278673a](https://github.com/fso13/dnd5e/commit/278673af5b68bbca111a328ba7a5536e7db9bfc0))
+
 ## [1.8.0](https://github.com/fso13/dnd5e/compare/v1.7.0...v1.8.0) (2025-03-13)
 
 
