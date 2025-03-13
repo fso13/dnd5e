@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Typography, Paper, Divider, Chip, CardMedia } from '@mui/material';
-
+import BookmarkButton from '../../components/bookmark/BookmarkButton';
 // Функция для получения цвета типа монстра
 const getTypeColor = (type) => {
     switch (type) {
@@ -20,7 +20,7 @@ const getTypeColor = (type) => {
     }
 };
 
-const MonsterDetailPage = ({ monsters }) => {
+const MonsterDetailPage = ({ monsters, bookmarks, addMonsterToBookmark, addBookmark }) => {
     const { monsterName } = useParams(); // Получаем имя монстра из URL
     const monster = monsters.find(monster => monster.name === monsterName); // Находим монстра по имени
 
@@ -32,27 +32,29 @@ const MonsterDetailPage = ({ monsters }) => {
         <Box sx={{ padding: 3, maxWidth: 800, margin: '0 auto' }}>
             <Paper elevation={3} sx={{ padding: 3 }}>
 
-
-
-                <Box sx={{ overflow: 'hidden', position: 'relative' }}>
-                    {/* Заголовок и тип */}
-                    <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2 }}>
+                {/* Заголовок и кнопка закладки */}
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
                         {monster.name}
                     </Typography>
-
-                    {/* Метка "Дополнение" */}
-                    <Chip
-                        label={monster.type} color={getTypeColor(monster.type)}
-                        sx={{ position: 'absolute', top: 10, right: 10 }}
-                    />
-                </Box>
+                    <BookmarkButton
+                        bookmarks={bookmarks}
+                        addBookmark={addBookmark}
+                        onAddToBookmark={(bookmarkId) => addMonsterToBookmark(bookmarkId, monster)}
+                    /></Box>
                 <CardMedia
                     component="img"
                     src={`${process.env.PUBLIC_URL}/static/image/monsters/` + monster.imgStaticUrl}
                     alt={monster.name}
-                    sx={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                />
+                    sx={{ width: '100%', height: '100%', maxHeight: 300, objectFit: 'contain' }}
+
+                >
+
+                </CardMedia>
+
                 <Divider sx={{ my: 3 }} />
+                {/* Метка "Дополнение" */}
+                <Chip label={monster.type} color={getTypeColor(monster.type)} />
 
                 {/* Основная информация */}
                 <Typography variant="body1" sx={{ mb: 2 }}>

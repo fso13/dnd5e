@@ -1,7 +1,8 @@
 import React from 'react';
-import { Card, CardMedia, CardHeader, CardContent, Typography, Grid2, Paper, Divider, Chip, Box } from '@mui/material';
+import { Delete } from '@mui/icons-material';
+import { Card, CardMedia, CardHeader, CardContent, Typography, Grid2, Paper, Divider, Chip, Box, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import MonsterBookmarkButton from './MonsterBookmarkButton';
+import BookmarkButton from '../bookmark/BookmarkButton';
 // Функция для получения цвета типа монстра
 const getTypeColor = (type) => {
     switch (type) {
@@ -20,7 +21,7 @@ const getTypeColor = (type) => {
     }
 };
 
-const MonsterCard = ({ monster, index }) => {
+const MonsterCard = ({ monster, index, bookmarks, addMonsterToBookmark, addBookmark, removeMonsterFromBookmark }) => {
     const navigate = useNavigate();
 
     // Обработчик клика по карточке
@@ -46,6 +47,7 @@ const MonsterCard = ({ monster, index }) => {
 
             >
                 <Card sx={{ height: '100%' }}>
+
                     <Box sx={{ width: 300, height: 300, overflow: 'hidden', position: 'relative' }}>
                         <CardMedia
                             component="img"
@@ -58,14 +60,18 @@ const MonsterCard = ({ monster, index }) => {
 
                         title={monster.name}
                         action={
-                            <MonsterBookmarkButton monster={monster} />
+                            removeMonsterFromBookmark ? (
+                                <IconButton onClick={() => removeMonsterFromBookmark(monster.name)}>
+                                    <Delete />
+                                </IconButton>
+                            ) : (<BookmarkButton
+                                bookmarks={bookmarks}
+                                addBookmark={addBookmark}
+                                onAddToBookmark={(bookmarkId) => addMonsterToBookmark(bookmarkId, monster)}
+                            />)
                         }
                     />
                     <CardContent onClick={() => handleCardClick(monster.name)}>
-                        {/* Заголовок и тип */}
-                        <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
-                            {monster.name}
-                        </Typography>
                         <Chip
                             label={monster.type}
                             color={getTypeColor(monster.type)}

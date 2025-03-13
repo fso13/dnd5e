@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Box, Pagination } from '@mui/material';
-import SpellCards from '../components/SpellCards';
-import SpellFilter from '../components/SpellFilter';
-import SpellSearch from '../components/SpellSearch';
+import SpellCards from '../../components/spells/SpellCards';
+import SpellFilter from '../../components/spells/SpellFilter';
+import SpellSearch from '../../components/spells/SpellSearch';
 
-const HomePage = ({ spells }) => {
+const HomePage = ({ spells, bookmarks, addSpellToBookmark,addBookmark }) => {
     const [filters, setFilters] = useState({ class: '', level: '' });
     const [searchTerm, setSearchTerm] = useState('');
     const [isFiltersVisible, setIsFiltersVisible] = useState(true);
@@ -62,7 +62,7 @@ const HomePage = ({ spells }) => {
                 isFiltersVisible={isFiltersVisible}
             />
 
-            {<SpellCards spells={visibleSpells} />}
+            {<SpellCards spells={visibleSpells} bookmarks={bookmarks} addSpellToBookmark={addSpellToBookmark}  addBookmark={addBookmark}/>}
             {/* Пагинация */}
             <Pagination
                 count={Math.ceil(filteredSpells.length / itemsPerPage)}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Typography, Paper, Divider, Chip, Stack } from '@mui/material';
-import SpellBookmarkButton from '../components/SpellBookmarkButton';
+import BookmarkButton from '../../components/bookmark/BookmarkButton';
 
 // Функция для получения цвета школы магии
 const getSchoolColor = (school) => {
@@ -25,7 +25,7 @@ const getSchoolColor = (school) => {
     }
 };
 
-const SpellDetailPage = ({ spells }) => {
+const SpellDetailPage = ({ spells, bookmarks, addSpellToBookmark,addBookmark }) => {
     const { spellName } = useParams(); // Получаем имя заклинания из URL
     const spell = spells.find(spell => spell.name === spellName); // Находим заклинание по имени
 
@@ -41,7 +41,7 @@ const SpellDetailPage = ({ spells }) => {
                     <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
                         {spell.name}
                     </Typography>
-                    <SpellBookmarkButton spell={spell} />
+                    <BookmarkButton spell={spell} bookmarks={bookmarks} addSpellToBookmark={addSpellToBookmark}  addBookmark={addBookmark}/>
                 </Box>
 
                 {/* Основная информация */}

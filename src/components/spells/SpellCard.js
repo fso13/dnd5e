@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, Typography, Grid2, Paper, Divider, Chip, Stack, Box } from '@mui/material';
+import { Card, CardContent, CardHeader, Typography, Grid2, Paper, Divider, Chip, Stack, Box,IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import SpellBookmarkButton from './SpellBookmarkButton';
-
+import BookmarkButton from '../bookmark/BookmarkButton';
+import { Delete } from '@mui/icons-material';
 
 // Функция для получения цвета школы магии
 const getSchoolColor = (school) => {
@@ -26,7 +26,7 @@ const getSchoolColor = (school) => {
     }
 };
 
-const SpellCard = ({ spell, index }) => {
+const SpellCard = ({ spell, index, bookmarks, addSpellToBookmark,addBookmark,removeSpellFromBookmark }) => {
     const navigate = useNavigate();
 
     // Обработчик клика по карточке
@@ -54,14 +54,22 @@ const SpellCard = ({ spell, index }) => {
 
                         title={spell.name}
                         action={
-                            <SpellBookmarkButton spell={spell} />
+                            removeSpellFromBookmark ? (
+                                <IconButton onClick={() => removeSpellFromBookmark(spell.name)}>
+                                    <Delete />
+                                </IconButton>
+                            ) : (<BookmarkButton
+                                bookmarks={bookmarks}
+                                addBookmark={addBookmark}
+                                onAddToBookmark={(bookmarkId) => addSpellToBookmark(bookmarkId, spell)}
+                            />)
                         }
                     />
                     <CardContent onClick={() => handleCardClick(spell.name)}>
                         {/* Заголовок и школа */}
                         {/* Основная информация */}
                         <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-                            <Chip label={`Школа: ${spell.school}`} color={getSchoolColor(spell)} />
+                            <Chip label={`Школа: ${spell.school}`} color={getSchoolColor(spell.school)} />
                             <Chip label={`Уровень: ${spell.level}`} color="secondary" />
                         </Stack>
                         <Divider sx={{ my: 2 }} />
