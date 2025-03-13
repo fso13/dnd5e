@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Box, Typography, Button, TextField, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 
-const BookmarkModal = ({ open, onClose, onAddToBookmark, spell }) => {
+const SpellBookmarkModal = ({ open, onClose, onAddToBookmark, spell }) => {
     const [bookmarks] = useState(JSON.parse(localStorage.getItem('bookmarks')) || []);
     const [selectedBookmark, setSelectedBookmark] = useState('');
     const [newBookmarkName, setNewBookmarkName] = useState('');
@@ -21,6 +21,7 @@ const BookmarkModal = ({ open, onClose, onAddToBookmark, spell }) => {
                 id: Date.now(),
                 name: newBookmarkName,
                 spells: [spell],
+                monsters: [],
             };
             localStorage.setItem('bookmarks', JSON.stringify([...bookmarks, newBookmark]));
         }
@@ -60,4 +61,4 @@ const BookmarkModal = ({ open, onClose, onAddToBookmark, spell }) => {
     );
 };
 
-export default BookmarkModal;
+export default SpellBookmarkModal;

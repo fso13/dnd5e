@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Typography, Paper, Divider, Chip, Stack } from '@mui/material';
-import BookmarkButton from '../components/BookmarkButton';
+import SpellBookmarkButton from '../components/SpellBookmarkButton';
 
 // Функция для получения цвета школы магии
 const getSchoolColor = (school) => {
@@ -41,7 +41,7 @@ const SpellDetailPage = ({ spells }) => {
                     <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
                         {spell.name}
                     </Typography>
-                    <BookmarkButton spell={spell} />
+                    <SpellBookmarkButton spell={spell} />
                 </Box>
 
                 {/* Основная информация */}

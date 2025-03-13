@@ -1,8 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography,Divider } from '@mui/material';
 import SpellCards from '../components/SpellCards';
-
+import MonsterCards from '../components/MonsterCards';
 const BookmarkDetailPage = () => {
     const { bookmarkId } = useParams();
     const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
@@ -17,6 +17,9 @@ const BookmarkDetailPage = () => {
             <Typography variant="h4">{bookmark.name}</Typography>
             <SpellCards spells={bookmark.spells} />
             {/* Или используйте SpellTable или SpellCards */}
+            {/* Отображение монстров */}
+            <Divider sx={{ my: 3 }} />
+            {<MonsterCards monsters={bookmark.monsters} />}
         </Box>
     );
 };

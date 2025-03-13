@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { IconButton, Tooltip } from '@mui/material';
 import { BookmarkBorder } from '@mui/icons-material';
-import BookmarkModal from './BookmarkModal';
+import SpellBookmarkModal from './SpellBookmarkModal';
 
-const BookmarkButton = ({ spell }) => {
+const SpellBookmarkButton = ({ spell }) => {
     const [modalOpen, setModalOpen] = useState(false);
 
     return (
@@ -13,7 +13,7 @@ const BookmarkButton = ({ spell }) => {
                     <BookmarkBorder />
                 </IconButton>
             </Tooltip>
-            <BookmarkModal
+            <SpellBookmarkModal
                 open={modalOpen}
                 onClose={() => setModalOpen(false)}
                 onAddToBookmark={() => setModalOpen(false)}
@@ -23,4 +23,4 @@ const BookmarkButton = ({ spell }) => {
     );
 };
 
-export default BookmarkButton;
+export default SpellBookmarkButton;

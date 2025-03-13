@@ -1,7 +1,7 @@
 import React from 'react';
-import { Card, CardMedia, CardContent, Typography, Grid2, Paper, Divider, Chip, Box } from '@mui/material';
+import { Card, CardMedia, CardHeader, CardContent, Typography, Grid2, Paper, Divider, Chip, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
+import MonsterBookmarkButton from '../components/MonsterBookmarkButton';
 // Функция для получения цвета типа монстра
 const getTypeColor = (type) => {
     switch (type) {
@@ -47,7 +47,7 @@ const MonsterCards = ({ monsters }) => {
                                         boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.2)',
                                     },
                                 }}
-                                onClick={() => handleCardClick(monster.name)}
+                                
                             >
                                 <Card sx={{ height: '100%' }}>
                                     <Box sx={{ width: 300, height: 300, overflow: 'hidden', position: 'relative' }}>
@@ -58,8 +58,14 @@ const MonsterCards = ({ monsters }) => {
                                             sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                         />
                                     </Box>
+                                    <CardHeader
 
-                                    <CardContent>
+                                        title={monster.name}
+                                        action={
+                                            <MonsterBookmarkButton monster={monster} />
+                                        }
+                                    />
+                                    <CardContent onClick={() => handleCardClick(monster.name)}>
                                         {/* Заголовок и тип */}
                                         <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
                                             {monster.name}

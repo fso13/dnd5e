@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, Typography, Grid2, Paper, Divider, Chip, Stack, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import BookmarkButton from '../components/BookmarkButton';
+import SpellBookmarkButton from '../components/SpellBookmarkButton';
 
 
 // Функция для получения цвета школы магии
@@ -59,7 +59,7 @@ const SpellCards = ({ spells }) => {
 
                                     title={spell.name}
                                     action={
-                                        <BookmarkButton spell={spell} />
+                                        <SpellBookmarkButton spell={spell} />
                                     }
                                 />
                                 <CardContent onClick={() => handleCardClick(spell.name)}>
