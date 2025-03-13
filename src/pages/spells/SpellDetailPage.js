@@ -25,7 +25,7 @@ const getSchoolColor = (school) => {
     }
 };
 
-const SpellDetailPage = ({ spells, bookmarks, addSpellToBookmark,addBookmark }) => {
+const SpellDetailPage = ({ spells, bookmarks, addSpellToBookmark, addBookmark }) => {
     const { spellName } = useParams(); // Получаем имя заклинания из URL
     const spell = spells.find(spell => spell.name === spellName); // Находим заклинание по имени
 
@@ -41,12 +41,12 @@ const SpellDetailPage = ({ spells, bookmarks, addSpellToBookmark,addBookmark }) 
                     <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
                         {spell.name}
                     </Typography>
-                    <BookmarkButton spell={spell} bookmarks={bookmarks} addSpellToBookmark={addSpellToBookmark}  addBookmark={addBookmark}/>
+                    <BookmarkButton spell={spell} bookmarks={bookmarks} addSpellToBookmark={addSpellToBookmark} addBookmark={addBookmark} />
                 </Box>
 
                 {/* Основная информация */}
                 <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-                    <Chip label={`Школа: ${spell.school}`} color={getSchoolColor(spell.school)} />
+                    {spell.school ? (<Chip label={`Школа: ${spell.school}`} color={getSchoolColor(spell.school)} />) : (<div />)}
                     <Chip label={`Уровень: ${spell.level}`} color="secondary" />
                 </Stack>
 

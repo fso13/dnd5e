@@ -33,17 +33,36 @@ function App() {
                     setSpells(JSON.parse(cachedSpells));
                     setMonsters(JSON.parse(cachedMonsters));
                 } else {
-                    
+
                     // Загружаем данные с сервера
                     const spellsResponse = await fetch(`${process.env.PUBLIC_URL}/data/spells.json`);
                     const spellsData = await spellsResponse.json();
-                    setSpells(spellsData);
-                    localStorage.setItem(SPELLS_KEY, JSON.stringify(spellsData));
+
+                    // Сортировка заклинаний по алфавиту и уровню
+                    const sortedSpells = spellsData.sort((a, b) => {
+                        // Сначала сортируем по уровню
+                        if (a.level !== b.level) {
+                            return a.level.localeCompare(b.level);
+                        }
+                        // Если уровни равны, сортируем по названию
+                        return a.name.localeCompare(b.name);
+                    });
+
+                    setSpells(sortedSpells);
+                    localStorage.setItem(SPELLS_KEY, JSON.stringify(sortedSpells));
 
                     const monstersResponse = await fetch(`${process.env.PUBLIC_URL}/data/monsters.json`);
                     const monstersData = await monstersResponse.json();
-                    setMonsters(monstersData);
-                    localStorage.setItem(MONSTERS_KEY, JSON.stringify(monstersData));
+
+
+                    // Сортировка заклинаний по алфавиту и уровню
+                    const sortedMonsters = monstersData.sort((a, b) => {
+                        // Сначала сортируем по уровню
+                        return a.name.localeCompare(b.name);
+                    });
+
+                    setMonsters(sortedMonsters);
+                    localStorage.setItem(MONSTERS_KEY, JSON.stringify(sortedMonsters));
                 }
 
                 // Загружаем закладки из localStorage
@@ -134,16 +153,16 @@ function App() {
 
     return (
         <div>
-            <NavBar/>
+            <NavBar />
             <Routes>
                 {/* Главная страница с заклинаниями */}
-                <Route path="/" element={<HomePage spells={spells} bookmarks={bookmarks} addSpellToBookmark={addSpellToBookmark} addBookmark={addBookmark}/>} />
-                <Route path="/spells" element={<HomePage spells={spells} bookmarks={bookmarks} addSpellToBookmark={addSpellToBookmark}  addBookmark={addBookmark}/>} />
+                <Route path="/" element={<HomePage spells={spells} bookmarks={bookmarks} addSpellToBookmark={addSpellToBookmark} addBookmark={addBookmark} />} />
+                <Route path="/spells" element={<HomePage spells={spells} bookmarks={bookmarks} addSpellToBookmark={addSpellToBookmark} addBookmark={addBookmark} />} />
                 {/* Страница с деталями заклинания */}
-                <Route path="/spells/:spellName" element={<SpellDetailPage spells={spells} bookmarks={bookmarks} addSpellToBookmark={addSpellToBookmark}  addBookmark={addBookmark} />} />
+                <Route path="/spells/:spellName" element={<SpellDetailPage spells={spells} bookmarks={bookmarks} addSpellToBookmark={addSpellToBookmark} addBookmark={addBookmark} />} />
 
                 {/* Страница с бестиарием */}
-                <Route path="/bestiary" element={<BestiaryPage monsters={monsters}  bookmarks={bookmarks} addMonsterToBookmark={addMonsterToBookmark} addBookmark={addBookmark}/>} />
+                <Route path="/bestiary" element={<BestiaryPage monsters={monsters} bookmarks={bookmarks} addMonsterToBookmark={addMonsterToBookmark} addBookmark={addBookmark} />} />
 
                 {/* Страница с деталями монстра */}
                 <Route path="/bestiary/:monsterName" element={<MonsterDetailPage monsters={monsters} bookmarks={bookmarks} addMonsterToBookmark={addMonsterToBookmark} addBookmark={addBookmark} />} />
@@ -152,7 +171,7 @@ function App() {
                 <Route path="/bookmarks" element={<BookmarksPage bookmarks={bookmarks} removeBookmark={removeBookmark} removeSpellFromBookmark={removeSpellFromBookmark} removeMonsterFromBookmark={removeMonsterFromBookmark} renameBookmark={renameBookmark} />} />
 
                 {/* Страница с деталями закладки */}
-                <Route path="/bookmarks/:bookmarkId" element={<BookmarkDetailPage bookmarks={bookmarks}  removeBookmark={removeBookmark} removeSpellFromBookmark={removeSpellFromBookmark} removeMonsterFromBookmark={removeMonsterFromBookmark} renameBookmark={renameBookmark} addSpellToBookmark={addSpellToBookmark}  addBookmark={addBookmark} addMonsterToBookmark={addMonsterToBookmark}/>} />
+                <Route path="/bookmarks/:bookmarkId" element={<BookmarkDetailPage bookmarks={bookmarks} removeBookmark={removeBookmark} removeSpellFromBookmark={removeSpellFromBookmark} removeMonsterFromBookmark={removeMonsterFromBookmark} renameBookmark={renameBookmark} addSpellToBookmark={addSpellToBookmark} addBookmark={addBookmark} addMonsterToBookmark={addMonsterToBookmark} />} />
             </Routes>
         </div>
 

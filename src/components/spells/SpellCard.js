@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, Typography, Grid2, Paper, Divider, Chip, Stack, Box,IconButton } from '@mui/material';
+import { Card, CardContent, CardHeader, Typography, Grid2, Paper, Divider, Chip, Stack, Box, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import BookmarkButton from '../bookmark/BookmarkButton';
 import { Delete } from '@mui/icons-material';
@@ -26,7 +26,7 @@ const getSchoolColor = (school) => {
     }
 };
 
-const SpellCard = ({ spell, index, bookmarks, addSpellToBookmark,addBookmark,removeSpellFromBookmark }) => {
+const SpellCard = ({ spell, index, bookmarks, addSpellToBookmark, addBookmark, removeSpellFromBookmark }) => {
     const navigate = useNavigate();
 
     // Обработчик клика по карточке
@@ -69,7 +69,8 @@ const SpellCard = ({ spell, index, bookmarks, addSpellToBookmark,addBookmark,rem
                         {/* Заголовок и школа */}
                         {/* Основная информация */}
                         <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-                            <Chip label={`Школа: ${spell.school}`} color={getSchoolColor(spell.school)} />
+                            {spell.school ? (<Chip label={`Школа: ${spell.school}`} color={getSchoolColor(spell.school)} />) : (<div />)}
+
                             <Chip label={`Уровень: ${spell.level}`} color="secondary" />
                         </Stack>
                         <Divider sx={{ my: 2 }} />
