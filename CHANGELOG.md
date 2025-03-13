@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/fso13/dnd5e/compare/v1.7.0...v1.8.0) (2025-03-13)
+
+
+### 🚀 Features
+
+* Закладки монстров close [#6](https://github.com/fso13/dnd5e/issues/6) ([6faae41](https://github.com/fso13/dnd5e/commit/6faae418dd90e36a9eb0d11121552e6c1099cb21))
+
+
+### 🐛 Fixes
+
+* close [#10](https://github.com/fso13/dnd5e/issues/10) ([dd34969](https://github.com/fso13/dnd5e/commit/dd349693490a2af2fabc6695d1cd0aa9a7a201ea))
+
+
+### 🛠️ Code Refactoring
+
+* выделил карточки отдельным компонентом ([cf0ac57](https://github.com/fso13/dnd5e/commit/cf0ac575e848d3f2799fcbd7be9ac050247b5417))
+
 ## [1.7.0](https://github.com/fso13/dnd5e/compare/v1.6.0...v1.7.0) (2025-03-12)
 
 
