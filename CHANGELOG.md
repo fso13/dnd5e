@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.0](https://github.com/fso13/dnd5e/compare/v1.10.0...v1.11.0) (2025-03-14)
+
+
+### 🐛 Fixes
+
+* Удаление заклинаний в Закладках close [#16](https://github.com/fso13/dnd5e/issues/16) ([2105c9a](https://github.com/fso13/dnd5e/commit/2105c9aa85589788fd9568a6a0ec125768375877))
+
+
+### 🚀 Features
+
+*  Подтверждение удаление закладки close [#15](https://github.com/fso13/dnd5e/issues/15) ([1d8dec3](https://github.com/fso13/dnd5e/commit/1d8dec3d103137ad39e4dd61c86e1049fbdcc12f))
+
 ## [1.10.0](https://github.com/fso13/dnd5e/compare/v1.9.0...v1.10.0) (2025-03-13)
 
 
