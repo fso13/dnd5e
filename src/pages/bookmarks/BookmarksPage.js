@@ -3,6 +3,7 @@ import { Box, Typography, Grid2, IconButton, TextField, Button, Paper, Divider, 
 import { Delete, Edit } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import ConfirmationModal from '../../components/bookmark/ConfirmationModal'; // Импортируем компонент
 // Функция для получения цвета типа монстра
 const getTypeColor = (type) => {
     switch (type) {
@@ -47,6 +48,23 @@ const BookmarksPage = ({ bookmarks, removeBookmark, removeSpellFromBookmark, rem
     const [currentBookmarkId, setCurrentBookmarkId] = useState(null);
     const [newName, setNewName] = useState('');
     const navigate = useNavigate();
+    const [bookmarkToDelete, setBookmarkToDelete] = useState(null); // Закладка, которую нужно удалить
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false); // Состояние для модального окна удаления
+
+    // Обработчик открытия модального окна удаления
+    const handleDeleteClick = (bookmarkId) => {
+        setBookmarkToDelete(bookmarkId);
+        setDeleteModalOpen(true);
+    };
+
+    // Обработчик подтверждения удаления
+    const handleConfirmDelete = () => {
+        if (bookmarkToDelete) {
+            removeBookmark(bookmarkToDelete); // Удаляем закладку
+            setDeleteModalOpen(false); // Закрываем модальное окно
+            setBookmarkToDelete(null); // Сбрасываем состояние
+        }
+    };
 
 
     // Обработчик клика по карточке
@@ -107,7 +125,7 @@ const BookmarksPage = ({ bookmarks, removeBookmark, removeSpellFromBookmark, rem
                             <IconButton onClick={() => handleRenameClick(bookmark.id)} color="primary">
                                 <Edit />
                             </IconButton>
-                            <IconButton onClick={() => removeBookmark(bookmark.id)}>
+                            <IconButton onClick={() => handleDeleteClick(bookmark.id)}>
                                 <Delete />
                             </IconButton>
                         </Box>
@@ -165,6 +183,15 @@ const BookmarksPage = ({ bookmarks, removeBookmark, removeSpellFromBookmark, rem
                     </Button>
                 </Box>
             </Modal>
+
+
+            {/* Модальное окно подтверждения удаления */}
+            <ConfirmationModal
+                open={deleteModalOpen}
+                onClose={() => setDeleteModalOpen(false)}
+                onConfirm={handleConfirmDelete}
+                message="Вы уверены, что хотите удалить эту закладку?"
+            />
         </Box>
     );
 };

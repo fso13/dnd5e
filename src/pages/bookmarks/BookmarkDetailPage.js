@@ -4,11 +4,32 @@ import { Delete, Edit } from '@mui/icons-material';
 import { Box, Typography, IconButton, Divider, Button, Modal, TextField, Grid2 } from '@mui/material';
 import SpellCard from '../../components/spells/SpellCard';
 import MonsterCard from '../../components/monsters/MonsterCard';
+import ConfirmationModal from '../../components/bookmark/ConfirmationModal'; // Импортируем компонент
+
 const BookmarkDetailPage = ({ bookmarks, removeSpellFromBookmark, removeBookmark, removeMonsterFromBookmark, renameBookmark, addSpellToBookmark, addBookmark, addMonsterToBookmark }) => {
     const { bookmarkId } = useParams();
     const bookmark = bookmarks.find(bookmark => bookmark.id === parseInt(bookmarkId));
     const [renameModalOpen, setRenameModalOpen] = useState(false);
     const [newName, setNewName] = useState('');
+
+
+        const [bookmarkToDelete, setBookmarkToDelete] = useState(null); // Закладка, которую нужно удалить
+        const [deleteModalOpen, setDeleteModalOpen] = useState(false); // Состояние для модального окна удаления
+    
+        // Обработчик открытия модального окна удаления
+        const handleDeleteClick = (bookmarkId) => {
+            setBookmarkToDelete(bookmarkId);
+            setDeleteModalOpen(true);
+        };
+    
+        // Обработчик подтверждения удаления
+        const handleConfirmDelete = () => {
+            if (bookmarkToDelete) {
+                removeBookmark(bookmarkToDelete); // Удаляем закладку
+                setDeleteModalOpen(false); // Закрываем модальное окно
+                setBookmarkToDelete(null); // Сбрасываем состояние
+            }
+        };
 
     if (!bookmark) {
         return <Typography variant="h4">Закладка не найдена</Typography>;
@@ -32,7 +53,7 @@ const BookmarkDetailPage = ({ bookmarks, removeSpellFromBookmark, removeBookmark
                     </IconButton>
                 </Grid2>
                 <Grid2>
-                    <IconButton onClick={() => removeBookmark(bookmark.id)} >
+                    <IconButton onClick={() => handleDeleteClick(bookmark.id)} >
                         <Delete />
                     </IconButton>
                 </Grid2>
@@ -70,6 +91,15 @@ const BookmarkDetailPage = ({ bookmarks, removeSpellFromBookmark, removeBookmark
                     return <MonsterCard monster={monster} index={index} bookmark={bookmark} bookmarks={bookmarks} addMonsterToBookmark={addMonsterToBookmark} addBookmark={addBookmark} removeMonsterFromBookmark={removeMonsterFromBookmark} />
                 })}
             </Grid2>
+
+
+            {/* Модальное окно подтверждения удаления */}
+            <ConfirmationModal
+                open={deleteModalOpen}
+                onClose={() => setDeleteModalOpen(false)}
+                onConfirm={handleConfirmDelete}
+                message="Вы уверены, что хотите удалить эту закладку?"
+            />
         </Box>
     );
 };
