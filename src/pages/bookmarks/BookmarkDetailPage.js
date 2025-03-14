@@ -59,7 +59,7 @@ const BookmarkDetailPage = ({ bookmarks, removeSpellFromBookmark, removeBookmark
 
             <Grid2 container spacing={3} justifyContent="center">
                 {bookmark.spells.map((spell, index) => {
-                    return <SpellCard spell={spell} index={index} bookmarks={bookmarks} removeSpellFromBookmark={removeSpellFromBookmark} addBookmark={addBookmark} addSpellToBookmark={addSpellToBookmark} />
+                    return <SpellCard spell={spell} index={index} bookmark={bookmark} bookmarks={bookmarks} removeSpellFromBookmark={removeSpellFromBookmark} addBookmark={addBookmark} addSpellToBookmark={addSpellToBookmark} />
                 })}
             </Grid2>
             {/* Отображение монстров */}
@@ -67,7 +67,7 @@ const BookmarkDetailPage = ({ bookmarks, removeSpellFromBookmark, removeBookmark
 
             <Grid2 container spacing={3} justifyContent="center">
                 {bookmark.monsters.map((monster, index) => {
-                    return <MonsterCard monster={monster} index={index} bookmarks={bookmarks} addMonsterToBookmark={addMonsterToBookmark} addBookmark={addBookmark} removeMonsterFromBookmark={removeMonsterFromBookmark} />
+                    return <MonsterCard monster={monster} index={index} bookmark={bookmark} bookmarks={bookmarks} addMonsterToBookmark={addMonsterToBookmark} addBookmark={addBookmark} removeMonsterFromBookmark={removeMonsterFromBookmark} />
                 })}
             </Grid2>
         </Box>

@@ -21,7 +21,7 @@ const getTypeColor = (type) => {
     }
 };
 
-const MonsterCard = ({ monster, index, bookmarks, addMonsterToBookmark, addBookmark, removeMonsterFromBookmark }) => {
+const MonsterCard = ({ monster, index, bookmark, bookmarks, addMonsterToBookmark, addBookmark, removeMonsterFromBookmark }) => {
     const navigate = useNavigate();
 
     // Обработчик клика по карточке
@@ -61,7 +61,7 @@ const MonsterCard = ({ monster, index, bookmarks, addMonsterToBookmark, addBookm
                         title={monster.name}
                         action={
                             removeMonsterFromBookmark ? (
-                                <IconButton onClick={() => removeMonsterFromBookmark(monster.name)}>
+                                <IconButton onClick={() => removeMonsterFromBookmark(bookmark.id, monster.name)}>
                                     <Delete />
                                 </IconButton>
                             ) : (<BookmarkButton

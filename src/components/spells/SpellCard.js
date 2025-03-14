@@ -26,7 +26,7 @@ const getSchoolColor = (school) => {
     }
 };
 
-const SpellCard = ({ spell, index, bookmarks, addSpellToBookmark, addBookmark, removeSpellFromBookmark }) => {
+const SpellCard = ({ spell, bookmark, index, bookmarks, addSpellToBookmark, addBookmark, removeSpellFromBookmark }) => {
     const navigate = useNavigate();
 
     // Обработчик клика по карточке
@@ -55,7 +55,7 @@ const SpellCard = ({ spell, index, bookmarks, addSpellToBookmark, addBookmark, r
                         title={spell.name}
                         action={
                             removeSpellFromBookmark ? (
-                                <IconButton onClick={() => removeSpellFromBookmark(spell.name)}>
+                                <IconButton onClick={() => removeSpellFromBookmark(bookmark.id, spell.name)}>
                                     <Delete />
                                 </IconButton>
                             ) : (<BookmarkButton
