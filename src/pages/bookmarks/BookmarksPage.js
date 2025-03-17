@@ -134,11 +134,11 @@ const BookmarksPage = ({ bookmarks, removeBookmark, removeSpellFromBookmark, rem
                             {bookmark.spells.map((spell, index) => (
                                 <Chip
                                     color={getSchoolColor(spell.school)}
-                                    key={spell.name}
-                                    label={spell.name}
-                                    onClick={() => handleSpellClick(spell.name)}
+                                    key={spell.name.rus}
+                                    label={spell.name.rus}
+                                    onClick={() => handleSpellClick(spell.name.rus)}
                                     sx={{ mb: 1 }}
-                                    onDelete={() => removeSpellFromBookmark(bookmark.id, spell.name)}
+                                    onDelete={() => removeSpellFromBookmark(bookmark.id, spell.name.rus)}
                                 />
                             ))}
                         </Box>

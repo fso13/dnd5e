@@ -6,20 +6,20 @@ import { Delete } from '@mui/icons-material';
 
 // Функция для получения цвета школы магии
 const getSchoolColor = (school) => {
-    switch (school) {
-        case 'Вызов':
+    switch (school.toLowerCase()) {
+        case 'вызов':
             return 'primary'; // Синий
-        case 'Иллюзия':
+        case 'иллюзия':
             return 'secondary'; // Фиолетовый
-        case 'Ограждение':
+        case 'ограждение':
             return 'success'; // Зеленый
-        case 'Некромантия':
+        case 'некромантия':
             return 'error'; // Красный
-        case 'Преобразование':
+        case 'преобразование':
             return 'warning'; // Оранжевый
-        case 'Очарование':
+        case 'очарование':
             return 'info'; // Голубой
-        case 'Прорицание':
+        case 'прорицание':
             return 'default'; // Серый
         default:
             return 'default'; // По умолчанию
@@ -52,10 +52,10 @@ const SpellCard = ({ spell, bookmark, index, bookmarks, addSpellToBookmark, addB
                 <Box sx={{ width: 300, height: 300, overflow: 'hidden', position: 'relative' }}>
                     <CardHeader
 
-                        title={spell.name}
+                        title={spell.name.rus}
                         action={
                             removeSpellFromBookmark ? (
-                                <IconButton onClick={() => removeSpellFromBookmark(bookmark.id, spell.name)}>
+                                <IconButton onClick={() => removeSpellFromBookmark(bookmark.id, spell.name.rus)}>
                                     <Delete />
                                 </IconButton>
                             ) : (<BookmarkButton
@@ -65,7 +65,7 @@ const SpellCard = ({ spell, bookmark, index, bookmarks, addSpellToBookmark, addB
                             />)
                         }
                     />
-                    <CardContent onClick={() => handleCardClick(spell.name)}>
+                    <CardContent onClick={() => handleCardClick(spell.name.rus)}>
                         {/* Заголовок и школа */}
                         {/* Основная информация */}
                         <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
@@ -77,23 +77,20 @@ const SpellCard = ({ spell, bookmark, index, bookmarks, addSpellToBookmark, addB
 
                         {/* Основная информация */}
                         <Typography variant="body2" sx={{ mb: 1 }}>
-                            <strong>Уровень:</strong> {spell.level}
-                        </Typography>
-                        <Typography variant="body2" sx={{ mb: 1 }}>
-                            <strong>Время накладывания:</strong> {spell.castingTime}
+                            <strong>Время накладывания:</strong> {spell.time}
                         </Typography>
                         <Typography variant="body2" sx={{ mb: 1 }}>
                             <strong>Дистанция:</strong> {spell.range}
                         </Typography>
                         <Typography variant="body2" sx={{ mb: 1 }}>
-                            <strong>Компоненты:</strong> {spell.components}
+                            {/* <strong>Компоненты:</strong> {spell.components} */}
                         </Typography>
 
                         <Divider sx={{ my: 2 }} />
 
                         {/* Классы */}
                         <Typography variant="body2">
-                            <strong>Классы:</strong> {spell.spellClass.map(cls => cls.name).join(', ')}
+                            <strong>Классы:</strong> {spell.classes.map(cls => cls.name).join(', ')}
                         </Typography>
                     </CardContent>
                 </Box>

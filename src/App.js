@@ -35,17 +35,17 @@ function App() {
                 } else {
 
                     // Загружаем данные с сервера
-                    const spellsResponse = await fetch(`${process.env.PUBLIC_URL}/data/spells.json`);
+                    const spellsResponse = await fetch(`${process.env.PUBLIC_URL}/data/spells-new.json`);
                     const spellsData = await spellsResponse.json();
 
                     // Сортировка заклинаний по алфавиту и уровню
                     const sortedSpells = spellsData.sort((a, b) => {
                         // Сначала сортируем по уровню
                         if (a.level !== b.level) {
-                            return a.level.localeCompare(b.level);
+                            return compareIndexFound(a,b);
                         }
                         // Если уровни равны, сортируем по названию
-                        return a.name.localeCompare(b.name);
+                        return a.name.rus.localeCompare(b.name.rus);
                     });
 
                     setSpells(sortedSpells);
@@ -118,7 +118,7 @@ function App() {
     const removeSpellFromBookmark = (bookmarkId, spellId) => {
         setBookmarks(bookmarks.map(bookmark =>
             bookmark.id === bookmarkId
-                ? { ...bookmark, spells: bookmark.spells.filter(spell => spell.name !== spellId) }
+                ? { ...bookmark, spells: bookmark.spells.filter(spell => spell.name.rus !== spellId) }
                 : bookmark
         ));
     };
@@ -177,5 +177,11 @@ function App() {
 
     );
 }
+
+function compareIndexFound(a, b) {
+    if (a.level < b.level) { return -1; }
+    if (a.level > b.level) { return 1; }
+    return 0;
+  }
 
 export default App;

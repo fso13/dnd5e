@@ -3,31 +3,53 @@ import { useParams } from 'react-router-dom';
 import { Box, Typography, Paper, Divider, Chip, Stack } from '@mui/material';
 import BookmarkButton from '../../components/bookmark/BookmarkButton';
 
+
+/*вызов
+прорицание
+некромантия
+иллюзия
+очарование
+ограждение
+воплощение
+преобразование*/
 // Функция для получения цвета школы магии
 const getSchoolColor = (school) => {
-    switch (school) {
-        case 'Вызов':
+    switch (school.toLowerCase()) {
+        case 'вызов':
             return 'primary'; // Синий
-        case 'Иллюзия':
+        case 'иллюзия':
             return 'secondary'; // Фиолетовый
-        case 'Ограждение':
+        case 'ограждение':
             return 'success'; // Зеленый
-        case 'Некромантия':
+        case 'некромантия':
             return 'error'; // Красный
-        case 'Преобразование':
+        case 'преобразование':
             return 'warning'; // Оранжевый
-        case 'Очарование':
+        case 'очарование':
             return 'info'; // Голубой
-        case 'Прорицание':
+        case 'прорицание':
             return 'default'; // Серый
         default:
             return 'default'; // По умолчанию
     }
 };
 
+// Функция для форматирования компонентов
+const formatComponents = (components) => {
+    const { v, s, m } = components;
+    let result = [];
+
+    if (v) result.push('Вербальный');
+    if (s) result.push('Соматический');
+    if (m) result.push(`Материальный (${m})`);
+
+    return result.join(', ');
+};
+
+
 const SpellDetailPage = ({ spells, bookmarks, addSpellToBookmark, addBookmark }) => {
     const { spellName } = useParams(); // Получаем имя заклинания из URL
-    const spell = spells.find(spell => spell.name === spellName); // Находим заклинание по имени
+    const spell = spells.find(spell => spell.name.rus === spellName); // Находим заклинание по имени
 
     if (!spell) {
         return <Typography variant="h4">Заклинание не найдено</Typography>;
@@ -39,7 +61,7 @@ const SpellDetailPage = ({ spells, bookmarks, addSpellToBookmark, addBookmark })
                 {/* Заголовок и кнопка закладки */}
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
-                        {spell.name}
+                        {spell.name.rus}
                     </Typography>
                     <BookmarkButton spell={spell} bookmarks={bookmarks} addSpellToBookmark={addSpellToBookmark} addBookmark={addBookmark} />
                 </Box>
@@ -53,9 +75,14 @@ const SpellDetailPage = ({ spells, bookmarks, addSpellToBookmark, addBookmark })
                 <Divider sx={{ my: 3 }} />
 
                 {/* Описание заклинания */}
-                <Typography variant="body1" sx={{ mb: 2 }}>
-                    {spell.text}
-                </Typography>
+                {/* <Typography variant="body1" sx={{ mb: 2 }}>
+                    {spell.description}
+                </Typography> */}
+
+                <div
+                    dangerouslySetInnerHTML={{ __html: spell.description }}
+                    style={{ lineHeight: spell.lineHeight || '1.5' }}
+                />
 
                 <Divider sx={{ my: 3 }} />
 
@@ -65,19 +92,19 @@ const SpellDetailPage = ({ spells, bookmarks, addSpellToBookmark, addBookmark })
                         Детали заклинания
                     </Typography>
                     <Typography variant="body2" sx={{ mb: 1 }}>
-                        <strong>Время накладывания:</strong> {spell.castingTime}
+                        <strong>Время накладывания:</strong> {spell.time}
                     </Typography>
                     <Typography variant="body2" sx={{ mb: 1 }}>
                         <strong>Дистанция:</strong> {spell.range}
                     </Typography>
                     <Typography variant="body2" sx={{ mb: 1 }}>
-                        <strong>Компоненты:</strong> {spell.components}
+                        <strong>Компоненты:</strong> {formatComponents(spell.components)}
                     </Typography>
                     <Typography variant="body2" sx={{ mb: 1 }}>
                         <strong>Длительность:</strong> {spell.duration}
                     </Typography>
                     <Typography variant="body2" sx={{ mb: 1 }}>
-                        <strong>Классы:</strong> {spell.spellClass.map(cls => cls.name).join(', ')}
+                        <strong>Классы:</strong> {spell.classes.map(cls => cls.name).join(', ')}
                     </Typography>
                 </Box>
 

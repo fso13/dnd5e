@@ -4,7 +4,7 @@ import SpellCards from '../../components/spells/SpellCards';
 import SpellFilter from '../../components/spells/SpellFilter';
 import SpellSearch from '../../components/spells/SpellSearch';
 
-const HomePage = ({ spells, bookmarks, addSpellToBookmark,addBookmark }) => {
+const HomePage = ({ spells, bookmarks, addSpellToBookmark, addBookmark }) => {
     const [filters, setFilters] = useState({ class: '', level: '' });
     const [searchTerm, setSearchTerm] = useState('');
     const [isFiltersVisible, setIsFiltersVisible] = useState(true);
@@ -13,9 +13,9 @@ const HomePage = ({ spells, bookmarks, addSpellToBookmark,addBookmark }) => {
     // Фильтрация заклинаний
     const filteredSpells = spells.filter(spell => {
         return (
-            (filters.class ? spell.spellClass.some(cls => cls.name === filters.class) : true) &&
+            (filters.class ? spell.classes.some(cls => cls.name === filters.class) : true) &&
             (filters.level ? spell.level === filters.level : true) &&
-            (searchTerm ? spell.name.toLowerCase().includes(searchTerm.toLowerCase()) : true)
+            (searchTerm ? spell.name.rus.toLowerCase().includes(searchTerm.toLowerCase()) : true)
         );
     });
 
@@ -62,7 +62,7 @@ const HomePage = ({ spells, bookmarks, addSpellToBookmark,addBookmark }) => {
                 isFiltersVisible={isFiltersVisible}
             />
 
-            {<SpellCards spells={visibleSpells} bookmarks={bookmarks} addSpellToBookmark={addSpellToBookmark}  addBookmark={addBookmark}/>}
+            {<SpellCards spells={visibleSpells} bookmarks={bookmarks} addSpellToBookmark={addSpellToBookmark} addBookmark={addBookmark} />}
             {/* Пагинация */}
             <Pagination
                 count={Math.ceil(filteredSpells.length / itemsPerPage)}
