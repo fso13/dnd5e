@@ -21,11 +21,13 @@ const SpellFilter = ({ filters, setFilters, isFiltersVisible }) => {
                         <MenuItem value="Друид">Друид</MenuItem>
                         <MenuItem value="Бард">Бард</MenuItem>
                         <MenuItem value="Паладин">Паладин</MenuItem>
-                        <MenuItem value="Рейнджер">Рейнджер</MenuItem>
+                        <MenuItem value="Следопыт">Следопыт</MenuItem>
                         <MenuItem value="Чародей">Чародей</MenuItem>
                         <MenuItem value="Колдун">Колдун</MenuItem>
                         <MenuItem value="Волшебник">Волшебник</MenuItem>
                         <MenuItem value="Изобретатель">Изобретатель</MenuItem>
+                        <MenuItem value="Шаман">Шаман</MenuItem>
+                        <MenuItem value="Магус">Магус</MenuItem>
                     </Select>
                 </FormControl>
                 <FormControl fullWidth size="small">
