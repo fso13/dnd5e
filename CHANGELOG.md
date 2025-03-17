@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.15.0](https://github.com/fso13/dnd5e/compare/v1.14.0...v1.15.0) (2025-03-17)
+
+
+### 🚀 Features
+
+* Листы персонажей ([3ebae7b](https://github.com/fso13/dnd5e/commit/3ebae7bd802da50f49df0dcea958584d0ced3aee))
+
 ## [1.14.0](https://github.com/fso13/dnd5e/compare/v1.13.0...v1.14.0) (2025-03-17)
 
 
