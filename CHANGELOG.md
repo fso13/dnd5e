@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.13.0](https://github.com/fso13/dnd5e/compare/v1.12.0...v1.13.0) (2025-03-17)
+
+
+### 🐛 Fixes
+
+* добавид недостающие биомы, типы и сложности для монстров ([45112ef](https://github.com/fso13/dnd5e/commit/45112effb42688da81d6983f19e5f64f49a43f1a))
+
 ## [1.12.0](https://github.com/fso13/dnd5e/compare/v1.11.0...v1.12.0) (2025-03-17)
 
 
