@@ -6,6 +6,8 @@ import SpellDetailPage from './pages/spells/SpellDetailPage';
 import MonsterDetailPage from './pages/monsters/MonsterDetailPage';
 import BookmarksPage from './pages/bookmarks/BookmarksPage';
 import BookmarkDetailPage from './pages/bookmarks/BookmarkDetailPage';
+import CharacterSheetPage from './pages/character/CharacterSheetPage';
+import CharacterManager from './pages/character/CharacterManager';
 import NavBar from './components/NavBar';
 import { useSnackbar } from 'notistack';
 
@@ -163,6 +165,8 @@ function App() {
         <div>
             <NavBar />
             <Routes>
+                <Route path="/character-sheet" element={<CharacterManager />} />
+                <Route path="/character-sheet/:id" element={<CharacterSheetPage />} />
                 {/* Главная страница с заклинаниями */}
                 <Route path="/" element={<HomePage spells={spells} bookmarks={bookmarks} addSpellToBookmark={addSpellToBookmark} addBookmark={addBookmark} />} />
                 <Route path="/spells" element={<HomePage spells={spells} bookmarks={bookmarks} addSpellToBookmark={addSpellToBookmark} addBookmark={addBookmark} />} />

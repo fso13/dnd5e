@@ -17,6 +17,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import BookIcon from '@mui/icons-material/Book';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
+import PersonIcon from '@mui/icons-material/Person';
 import ThemeToggle from './ThemeToggle'; // Компонент для переключения темы
 
 const NavBar = () => {
@@ -37,6 +38,7 @@ const NavBar = () => {
     { text: 'Заклинания', icon: <BookIcon />, path: '/spells' },
     { text: 'Бестиарий', icon: <Diversity3Icon />, path: '/bestiary' },
     { text: 'Закладки', icon: <BookmarkIcon />, path: '/bookmarks' },
+    { text: 'Лист персонажа', icon: <PersonIcon />, path: '/character-sheet' },
   ];
 
   return (
@@ -57,7 +59,7 @@ const NavBar = () => {
             </IconButton>
           )}
           {/* Иконка приложения и название сайта */}
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={event =>  window.location.href='/dnd5e'}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={event => window.location.href = '/dnd5e'}>
             Бардовский университет v2.0
           </Typography>
           {/* Пункты меню для десктопной версии */}
