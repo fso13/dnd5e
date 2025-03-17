@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/dnd5e/static/js/main.932e4ecb.js",
+    "main.js": "/dnd5e/static/js/main.a4b560d7.js",
     "index.html": "/dnd5e/index.html",
-    "main.932e4ecb.js.map": "/dnd5e/static/js/main.932e4ecb.js.map"
+    "main.a4b560d7.js.map": "/dnd5e/static/js/main.a4b560d7.js.map"
   },
   "entrypoints": [
-    "static/js/main.932e4ecb.js"
+    "static/js/main.a4b560d7.js"
   ]
 }
