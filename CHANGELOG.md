@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.14.0](https://github.com/fso13/dnd5e/compare/v1.13.0...v1.14.0) (2025-03-17)
+
+
+### 🐛 Fixes
+
+* Добавлены классы для заклинаний ([692ae2b](https://github.com/fso13/dnd5e/commit/692ae2b5f39f79e998103bd3f677ace156fe0ae4))
+
 ## [1.13.0](https://github.com/fso13/dnd5e/compare/v1.12.0...v1.13.0) (2025-03-17)
 
 
