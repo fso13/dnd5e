@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.16.0](https://github.com/fso13/dnd5e/compare/v1.15.0...v1.16.0) (2025-03-17)
+
+
+### 🚀 Features
+
+* Подтверждение удаления персонажа. close [#20](https://github.com/fso13/dnd5e/issues/20) ([5e5bc4b](https://github.com/fso13/dnd5e/commit/5e5bc4be48ba8221272f4b2aa7c90f178c4f9a76))
+
 ## [1.15.0](https://github.com/fso13/dnd5e/compare/v1.14.0...v1.15.0) (2025-03-17)
 
 
