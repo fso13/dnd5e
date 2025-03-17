@@ -1,27 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Box, Typography, TextField, Button, Grid2, Paper, Chip, Autocomplete, Divider, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { useSnackbar } from 'notistack';
 
 const CharacterSheetPage = () => {
-
-
     const { id } = useParams(); // Получаем ID персонажа из URL
-
-    console.log(id);
+    const { enqueueSnackbar } = useSnackbar(); // Хук для уведомлений
     const [spellSearch, setSpellSearch] = useState('');
     const [spellResults, setSpellResults] = useState([]);
     const [cachedSpells, setCachedSpells] = useState([]);
-
     const [editedCharacter, setEditedCharacter] = useState(null);
     const navigate = useNavigate();
     // Загрузка данных персонажа
     useEffect(() => {
-        console.log(localStorage.getItem('dndCharacters'));
-
         const savedCharacters = JSON.parse(localStorage.getItem('dndCharacters'));
         const character = savedCharacters.find(char => char.id === parseInt(id));
 
-        console.log(character);
 
         const cachedSpellsData = localStorage.getItem('cached_spells');
         if (cachedSpellsData) {
@@ -50,6 +44,8 @@ const CharacterSheetPage = () => {
         );
         localStorage.setItem('dndCharacters', JSON.stringify(updatedCharacters));
         navigate('/character-sheet'); // Вернуться на главную страницу
+
+        enqueueSnackbar(`Персонаж "${updatedCharacters.name}" сохранен`, { variant: 'success' });
     };
 
     const handleChange = (e) => {

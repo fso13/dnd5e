@@ -3,10 +3,31 @@ import { Box, Typography, Button, Grid2, Paper, IconButton, Chip, Divider } from
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
+import ConfirmationModal from '../../components/ConfirmationModal'; // Импортируем компонент
+import { useSnackbar } from 'notistack';
 
 const CharacterManager = () => {
     const [characters, setCharacters] = useState([]);
     const navigate = useNavigate();
+    const [characterToDelete, setCharacterToDelete] = useState(null); // Закладка, которую нужно удалить
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false); // Состояние для модального окна удаления
+    const { enqueueSnackbar } = useSnackbar(); // Хук для уведомлений
+    // Обработчик открытия модального окна удаления
+    const handleDeleteClick = (id) => {
+        setCharacterToDelete(id);
+        setDeleteModalOpen(true);
+    };
+
+    // Обработчик подтверждения удаления
+    const handleConfirmDelete = () => {
+        if (characterToDelete) {
+            deleteCharacter(characterToDelete); // Удаляем закладку
+            setDeleteModalOpen(false); // Закрываем модальное окно
+            setCharacterToDelete(null); // Сбрасываем состояние
+
+            enqueueSnackbar(`Персонаж удален`, { variant: 'error' });
+        }
+    };
 
     // Загрузка данных из localStorage
     useEffect(() => {
@@ -46,6 +67,8 @@ const CharacterManager = () => {
         const updatedCharacters = [...characters, newCharacter];
         setCharacters(updatedCharacters);
         saveCharacters(updatedCharacters);
+
+        enqueueSnackbar(`Персонаж "${updatedCharacters.name}" создан`, { variant: 'success' });
     };
 
     // Удаление персонажа
@@ -96,6 +119,7 @@ const CharacterManager = () => {
                 <Grid2 container spacing={3}>
                     {characters.map((character) => (
                         <Paper
+
                             key={character.id}
                             elevation={3}
                             sx={{
@@ -109,10 +133,19 @@ const CharacterManager = () => {
                                 },
                             }}
                         >
-                            <Box>
-                                <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                                    {character.name}
-                                </Typography>
+                            <Box spacing={5}>
+                                <Box spacing={2} sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                                    <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                                        {character.name}
+                                    </Typography>
+                                    <IconButton spacing={2} edge="end" onClick={() => navigate(`/character-sheet/${character.id}`)}>
+                                        <EditIcon />
+                                    </IconButton>
+                                    <IconButton spacing={2} edge="end" onClick={() => handleDeleteClick(character.id)}>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </Box>
+
                                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                                     {character.level}
                                 </Typography>
@@ -124,7 +157,7 @@ const CharacterManager = () => {
                                 </Typography>
 
                                 <Divider sx={{ my: 2 }} />
-                                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                                <Box spacing={2} sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                                     {character.spells.map((spell, index) => (
                                         <Chip
                                             color={getSchoolColor(spell)}
@@ -136,17 +169,19 @@ const CharacterManager = () => {
                                     ))}
                                 </Box>
 
-                                <IconButton edge="end" onClick={() => navigate(`/character-sheet/${character.id}`)}>
-                                    <EditIcon />
-                                </IconButton>
-                                <IconButton edge="end" onClick={() => deleteCharacter(character.id)}>
-                                    <DeleteIcon />
-                                </IconButton>
                             </Box>
                         </Paper>
                     ))}
                 </Grid2>
             </Paper>
+
+            {/* Модальное окно подтверждения удаления */}
+            <ConfirmationModal
+                open={deleteModalOpen}
+                onClose={() => setDeleteModalOpen(false)}
+                onConfirm={handleConfirmDelete}
+                message="Вы уверены, что хотите удалить эту закладку?"
+            />
         </Box>
     );
 };

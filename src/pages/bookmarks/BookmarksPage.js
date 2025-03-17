@@ -3,7 +3,7 @@ import { Box, Typography, Grid2, IconButton, TextField, Button, Paper, Divider, 
 import { Delete, Edit } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import ConfirmationModal from '../../components/bookmark/ConfirmationModal'; // Импортируем компонент
+import ConfirmationModal from '../../components/ConfirmationModal'; // Импортируем компонент
 // Функция для получения цвета типа монстра
 const getTypeColor = (type) => {
     switch (type) {

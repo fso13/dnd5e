@@ -4,7 +4,7 @@ import { Delete, Edit } from '@mui/icons-material';
 import { Box, Typography, IconButton, Divider, Button, Modal, TextField, Grid2 } from '@mui/material';
 import SpellCard from '../../components/spells/SpellCard';
 import MonsterCard from '../../components/monsters/MonsterCard';
-import ConfirmationModal from '../../components/bookmark/ConfirmationModal'; // Импортируем компонент
+import ConfirmationModal from '../../components/ConfirmationModal'; // Импортируем компонент
 
 const BookmarkDetailPage = ({ bookmarks, removeSpellFromBookmark, removeBookmark, removeMonsterFromBookmark, renameBookmark, addSpellToBookmark, addBookmark, addMonsterToBookmark }) => {
     const { bookmarkId } = useParams();
@@ -13,23 +13,23 @@ const BookmarkDetailPage = ({ bookmarks, removeSpellFromBookmark, removeBookmark
     const [newName, setNewName] = useState('');
 
 
-        const [bookmarkToDelete, setBookmarkToDelete] = useState(null); // Закладка, которую нужно удалить
-        const [deleteModalOpen, setDeleteModalOpen] = useState(false); // Состояние для модального окна удаления
-    
-        // Обработчик открытия модального окна удаления
-        const handleDeleteClick = (bookmarkId) => {
-            setBookmarkToDelete(bookmarkId);
-            setDeleteModalOpen(true);
-        };
-    
-        // Обработчик подтверждения удаления
-        const handleConfirmDelete = () => {
-            if (bookmarkToDelete) {
-                removeBookmark(bookmarkToDelete); // Удаляем закладку
-                setDeleteModalOpen(false); // Закрываем модальное окно
-                setBookmarkToDelete(null); // Сбрасываем состояние
-            }
-        };
+    const [bookmarkToDelete, setBookmarkToDelete] = useState(null); // Закладка, которую нужно удалить
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false); // Состояние для модального окна удаления
+
+    // Обработчик открытия модального окна удаления
+    const handleDeleteClick = (bookmarkId) => {
+        setBookmarkToDelete(bookmarkId);
+        setDeleteModalOpen(true);
+    };
+
+    // Обработчик подтверждения удаления
+    const handleConfirmDelete = () => {
+        if (bookmarkToDelete) {
+            removeBookmark(bookmarkToDelete); // Удаляем закладку
+            setDeleteModalOpen(false); // Закрываем модальное окно
+            setBookmarkToDelete(null); // Сбрасываем состояние
+        }
+    };
 
     if (!bookmark) {
         return <Typography variant="h4">Закладка не найдена</Typography>;
