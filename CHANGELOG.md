@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.12.0](https://github.com/fso13/dnd5e/compare/v1.11.0...v1.12.0) (2025-03-17)
+
+
+### 🚀 Features
+
+* Добавлены уведомления ([b0c1767](https://github.com/fso13/dnd5e/commit/b0c1767e109239585e67ca1a3f560b0e21ecb2fa))
+* новый сптсок заклинаний. ([f7a2b78](https://github.com/fso13/dnd5e/commit/f7a2b786a00ab267b48eab89d056a5e9f3385e9f))
+
 ## [1.11.0](https://github.com/fso13/dnd5e/compare/v1.10.0...v1.11.0) (2025-03-14)
 
 
