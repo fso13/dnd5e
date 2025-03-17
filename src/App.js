@@ -7,13 +7,14 @@ import MonsterDetailPage from './pages/monsters/MonsterDetailPage';
 import BookmarksPage from './pages/bookmarks/BookmarksPage';
 import BookmarkDetailPage from './pages/bookmarks/BookmarkDetailPage';
 import NavBar from './components/NavBar';
+import { useSnackbar } from 'notistack';
 
 function App() {
     const [bookmarks, setBookmarks] = useState([]); // Состояние для закладок
     const [spells, setSpells] = useState([]); // Состояние для заклинаний
     const [monsters, setMonsters] = useState([]); // Состояние для монстров
     const [isLoading, setIsLoading] = useState(true); // Состояние для загрузки
-
+    const { enqueueSnackbar } = useSnackbar(); // Хук для уведомлений
     // Ключи для localStorage
     const SPELLS_KEY = 'cached_spells';
     const MONSTERS_KEY = 'cached_monsters';
@@ -42,7 +43,7 @@ function App() {
                     const sortedSpells = spellsData.sort((a, b) => {
                         // Сначала сортируем по уровню
                         if (a.level !== b.level) {
-                            return compareIndexFound(a,b);
+                            return compareIndexFound(a, b);
                         }
                         // Если уровни равны, сортируем по названию
                         return a.name.rus.localeCompare(b.name.rus);
@@ -94,6 +95,7 @@ function App() {
             monsters: [],
         };
         setBookmarks([...bookmarks, newBookmark]);
+        enqueueSnackbar(`Закладка "${newBookmark.name}" создана`, { variant: 'success' });
     };
 
     // Добавление заклинания в закладку
@@ -103,6 +105,7 @@ function App() {
                 ? { ...bookmark, spells: [...bookmark.spells, spell] }
                 : bookmark
         ));
+        enqueueSnackbar(`Заклинание "${spell.name.rus}" добавлено в закладки`, { variant: 'success' });
     };
 
     // Добавление монстра в закладку
@@ -112,6 +115,7 @@ function App() {
                 ? { ...bookmark, monsters: [...bookmark.monsters, monster] }
                 : bookmark
         ));
+        enqueueSnackbar(`Монстер "${monster.name}" добавлено в закладки`, { variant: 'success' });
     };
 
     // Удаление заклинания из закладки
@@ -121,6 +125,7 @@ function App() {
                 ? { ...bookmark, spells: bookmark.spells.filter(spell => spell.name.rus !== spellId) }
                 : bookmark
         ));
+        enqueueSnackbar(`Заклинание "${spellId}" удалено из закладки`, { variant: 'error' });
     };
 
     // Удаление монстра из закладки
@@ -130,11 +135,13 @@ function App() {
                 ? { ...bookmark, monsters: bookmark.monsters.filter(monster => monster.name !== monsterId) }
                 : bookmark
         ));
+        enqueueSnackbar(`Монстр "${monsterId}" удален из закладки`, { variant: 'error' });
     };
 
     // Удаление закладки
     const removeBookmark = (bookmarkId) => {
         setBookmarks(bookmarks.filter(bookmark => bookmark.id !== bookmarkId));
+        enqueueSnackbar(`Закладка удалена`, { variant: 'error' });
     };
 
     // Переименование закладки
@@ -144,6 +151,7 @@ function App() {
                 ? { ...bookmark, name: newName }
                 : bookmark
         ));
+        enqueueSnackbar(`Закладка переименованна в ${newName}`, { variant: 'warning' });
     };
 
     // Отображение загрузки
@@ -182,6 +190,6 @@ function compareIndexFound(a, b) {
     if (a.level < b.level) { return -1; }
     if (a.level > b.level) { return 1; }
     return 0;
-  }
+}
 
 export default App;

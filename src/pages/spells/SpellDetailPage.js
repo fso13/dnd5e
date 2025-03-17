@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { Box, Typography, Paper, Divider, Chip, Stack } from '@mui/material';
 import BookmarkButton from '../../components/bookmark/BookmarkButton';
 
-
 /*вызов
 прорицание
 некромантия
