@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Typography, Paper, Divider, Chip, CardMedia } from '@mui/material';
 import BookmarkButton from '../../components/bookmark/BookmarkButton';
-import {getTypeColor} from '../../components/monsters//MonsterUtils'
+import {getTypeColor} from '../../components/monsters/MonsterUtils'
 
 const MonsterDetailPage = ({ monsters, bookmarks, addMonsterToBookmark, addBookmark }) => {
     const { monsterName } = useParams(); // Получаем имя монстра из URL
