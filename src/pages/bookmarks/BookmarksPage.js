@@ -4,44 +4,9 @@ import { Delete, Edit } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import ConfirmationModal from '../../components/ConfirmationModal'; // Импортируем компонент
-// Функция для получения цвета типа монстра
-const getTypeColor = (type) => {
-    switch (type) {
-        case 'гуманоид':
-            return 'primary'; // Синий
-        case 'зверь':
-            return 'secondary'; // Фиолетовый
-        case 'нежить':
-            return 'error'; // Красный
-        case 'дракон':
-            return 'warning'; // Оранжевый
-        case 'элементаль':
-            return 'info'; // Голубой
-        default:
-            return 'default'; // Серый
-    }
-};
-// Функция для получения цвета школы магии
-const getSchoolColor = (school) => {
-    switch (school) {
-        case 'Вызов':
-            return 'primary'; // Синий
-        case 'Иллюзия':
-            return 'secondary'; // Фиолетовый
-        case 'Ограждение':
-            return 'success'; // Зеленый
-        case 'Некромантия':
-            return 'error'; // Красный
-        case 'Преобразование':
-            return 'warning'; // Оранжевый
-        case 'Очарование':
-            return 'info'; // Голубой
-        case 'Прорицание':
-            return 'default'; // Серый
-        default:
-            return 'default'; // По умолчанию
-    }
-};
+import {getSchoolColor} from '../../components/spells/SpellUtils'
+import {getTypeColor} from '../../components/monsters//MonsterUtils'
+
 
 const BookmarksPage = ({ bookmarks, removeBookmark, removeSpellFromBookmark, removeMonsterFromBookmark, renameBookmark }) => {
     const [renameModalOpen, setRenameModalOpen] = useState(false);

@@ -3,23 +3,7 @@ import { Delete } from '@mui/icons-material';
 import { Card, CardMedia, CardHeader, CardContent, Typography, Grid2, Paper, Divider, Chip, Box, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import BookmarkButton from '../bookmark/BookmarkButton';
-// Функция для получения цвета типа монстра
-const getTypeColor = (type) => {
-    switch (type) {
-        case 'гуманоид':
-            return 'primary'; // Синий
-        case 'зверь':
-            return 'secondary'; // Фиолетовый
-        case 'нежить':
-            return 'error'; // Красный
-        case 'дракон':
-            return 'warning'; // Оранжевый
-        case 'элементаль':
-            return 'info'; // Голубой
-        default:
-            return 'default'; // Серый
-    }
-};
+import {getTypeColor} from './MonsterUtils'
 
 const MonsterCard = ({ monster, index, bookmark, bookmarks, addMonsterToBookmark, addBookmark, removeMonsterFromBookmark }) => {
     const navigate = useNavigate();

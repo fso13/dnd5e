@@ -5,6 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
 import ConfirmationModal from '../../components/ConfirmationModal'; // Импортируем компонент
 import { useSnackbar } from 'notistack';
+import {getSchoolColor} from '../../components/spells/SpellUtils'
 
 const CharacterManager = () => {
     const [characters, setCharacters] = useState([]);
@@ -83,27 +84,7 @@ const CharacterManager = () => {
         navigate(`/spells/${name}`);
     };
 
-    // Функция для получения цвета школы магии
-    const getSchoolColor = (school) => {
-        switch (school) {
-            case 'Вызов':
-                return 'primary'; // Синий
-            case 'Иллюзия':
-                return 'secondary'; // Фиолетовый
-            case 'Ограждение':
-                return 'success'; // Зеленый
-            case 'Некромантия':
-                return 'error'; // Красный
-            case 'Преобразование':
-                return 'warning'; // Оранжевый
-            case 'Очарование':
-                return 'info'; // Голубой
-            case 'Прорицание':
-                return 'default'; // Серый
-            default:
-                return 'default'; // По умолчанию
-        }
-    };
+
 
     return (
         <Box sx={{ padding: 3 }}>

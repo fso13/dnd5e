@@ -2,23 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Typography, Paper, Divider, Chip, CardMedia } from '@mui/material';
 import BookmarkButton from '../../components/bookmark/BookmarkButton';
-// Функция для получения цвета типа монстра
-const getTypeColor = (type) => {
-    switch (type) {
-        case 'гуманоид':
-            return 'primary'; // Синий
-        case 'зверь':
-            return 'secondary'; // Фиолетовый
-        case 'нежить':
-            return 'error'; // Красный
-        case 'дракон':
-            return 'warning'; // Оранжевый
-        case 'элементаль':
-            return 'info'; // Голубой
-        default:
-            return 'default'; // Серый
-    }
-};
+import {getTypeColor} from '../../components/monsters//MonsterUtils'
 
 const MonsterDetailPage = ({ monsters, bookmarks, addMonsterToBookmark, addBookmark }) => {
     const { monsterName } = useParams(); // Получаем имя монстра из URL

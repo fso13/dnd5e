@@ -3,28 +3,9 @@ import { Card, CardContent, CardHeader, Typography, Grid2, Paper, Divider, Chip,
 import { useNavigate } from 'react-router-dom';
 import BookmarkButton from '../bookmark/BookmarkButton';
 import { Delete } from '@mui/icons-material';
-
+import {getSchoolColor} from './SpellUtils'
 // Функция для получения цвета школы магии
-const getSchoolColor = (school) => {
-    switch (school.toLowerCase()) {
-        case 'вызов':
-            return 'primary'; // Синий
-        case 'иллюзия':
-            return 'secondary'; // Фиолетовый
-        case 'ограждение':
-            return 'success'; // Зеленый
-        case 'некромантия':
-            return 'error'; // Красный
-        case 'преобразование':
-            return 'warning'; // Оранжевый
-        case 'очарование':
-            return 'info'; // Голубой
-        case 'прорицание':
-            return 'default'; // Серый
-        default:
-            return 'default'; // По умолчанию
-    }
-};
+
 
 const SpellCard = ({ spell, bookmark, index, bookmarks, addSpellToBookmark, addBookmark, removeSpellFromBookmark }) => {
     const navigate = useNavigate();

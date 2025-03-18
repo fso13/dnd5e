@@ -2,36 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Typography, Paper, Divider, Chip, Stack } from '@mui/material';
 import BookmarkButton from '../../components/bookmark/BookmarkButton';
-
-/*вызов
-прорицание
-некромантия
-иллюзия
-очарование
-ограждение
-воплощение
-преобразование*/
-// Функция для получения цвета школы магии
-const getSchoolColor = (school) => {
-    switch (school.toLowerCase()) {
-        case 'вызов':
-            return 'primary'; // Синий
-        case 'иллюзия':
-            return 'secondary'; // Фиолетовый
-        case 'ограждение':
-            return 'success'; // Зеленый
-        case 'некромантия':
-            return 'error'; // Красный
-        case 'преобразование':
-            return 'warning'; // Оранжевый
-        case 'очарование':
-            return 'info'; // Голубой
-        case 'прорицание':
-            return 'default'; // Серый
-        default:
-            return 'default'; // По умолчанию
-    }
-};
+import {getSchoolColor} from '../../components/spells/SpellUtils'
 
 // Функция для форматирования компонентов
 const formatComponents = (components) => {
