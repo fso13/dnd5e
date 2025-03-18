@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.17.0](https://github.com/fso13/dnd5e/compare/v1.16.0...v1.17.0) (2025-03-18)
+
+
+### 🛠️ Code Refactoring
+
+* вынес утильные методы в отдельный класс ([aeb1fdb](https://github.com/fso13/dnd5e/commit/aeb1fdb1cc55e13704c749ed463f469960242b52))
+
+
+### 🐛 Fixes
+
+* Изменил цвета монтров ([3f10eaf](https://github.com/fso13/dnd5e/commit/3f10eafcb480ec3f3619536495c8860bb45d4fe9))
+
 ## [1.16.0](https://github.com/fso13/dnd5e/compare/v1.15.0...v1.16.0) (2025-03-17)
 
 
