@@ -6,15 +6,20 @@
     "dependencies": {
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.0",
-        "@mui/icons-material": "^6.4.4",
-        "@mui/material": "^6.4.4",
+        "@mui/icons-material": "^6.4.8",
+        "@mui/material": "^6.4.8",
+        "@svgr/plugin-svgo": "^8.1.0",
+        "@svgr/webpack": "^8.1.0",
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^13.4.0",
         "@testing-library/user-event": "^13.5.0",
         "axios": "^1.5.0",
+        "css-select": "^5.1.0",
         "date-fns": "^4.1.0",
         "moment": "^2.29.4",
         "notistack": "^3.0.2",
+        "nth-check": "^2.1.1",
+        "postcss": "^8.5.3",
         "react": "^18.2.0",
         "react-big-calendar": "^1.11.0",
         "react-dom": "^18.2.0",
@@ -23,7 +28,8 @@
         "react-scripts": "^5.0.1",
         "react-slick": "^0.30.3",
         "recharts": "^2.8.0",
-        "slick-carousel": "^1.8.1"
+        "slick-carousel": "^1.8.1",
+        "svgo": "^3.3.2"
     },
     "scripts": {
         "predeploy": "npm run build",

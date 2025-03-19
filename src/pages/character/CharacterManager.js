@@ -69,7 +69,7 @@ const CharacterManager = () => {
         setCharacters(updatedCharacters);
         saveCharacters(updatedCharacters);
 
-        enqueueSnackbar(`Персонаж "${updatedCharacters.name}" создан`, { variant: 'success' });
+        enqueueSnackbar(`Персонаж "${newCharacter.name}" создан`, { variant: 'success' });
     };
 
     // Удаление персонажа
