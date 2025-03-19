@@ -18,3 +18,11 @@ export const getSchoolColor = (school) => {
             return 'default'; // По умолчанию
     }
 };
+
+export const getLevelText = (level) => {
+    if (level > 0) {
+        return `Уровень: ${level}`
+    } else {
+        return 'Заговор'
+    }
+};

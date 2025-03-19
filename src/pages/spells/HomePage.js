@@ -14,7 +14,7 @@ const HomePage = ({ spells, bookmarks, addSpellToBookmark, addBookmark }) => {
     const filteredSpells = spells.filter(spell => {
         return (
             (filters.class ? spell.classes.some(cls => cls.name === filters.class) : true) &&
-            (filters.level ? spell.level === filters.level : true) &&
+            (filters.level ? spell.level === parseInt(filters.level) : true) &&
             (searchTerm ? spell.name.rus.toLowerCase().includes(searchTerm.toLowerCase()) : true)
         );
     });

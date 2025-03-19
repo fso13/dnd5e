@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Delete } from '@mui/icons-material';
-import { Card, CardMedia, CardHeader, CardContent, Typography, Grid2, Paper, Divider, Chip, Box, IconButton } from '@mui/material';
+import { Card, CardMedia, CardHeader, CardContent, Typography, Grid2, Paper, Divider, Chip, Box, IconButton, Collapse, CardActionArea } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import BookmarkButton from '../bookmark/BookmarkButton';
-import {getTypeColor} from './MonsterUtils'
-
+import { getTypeColor } from './MonsterUtils'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 const MonsterCard = ({ monster, index, bookmark, bookmarks, addMonsterToBookmark, addBookmark, removeMonsterFromBookmark }) => {
     const navigate = useNavigate();
+    const [expanded, setExpanded] = useState(false);
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
 
     // Обработчик клика по карточке
     const handleCardClick = (monsterName) => {
@@ -31,17 +37,7 @@ const MonsterCard = ({ monster, index, bookmark, bookmarks, addMonsterToBookmark
 
             >
                 <Card sx={{ height: '100%' }}>
-
-                    <Box sx={{ width: 300, height: 300, overflow: 'hidden', position: 'relative' }}>
-                        <CardMedia
-                            component="img"
-                            src={`${process.env.PUBLIC_URL}/static/image/monsters/` + monster.imgStaticUrl}
-                            alt={monster.name}
-                            sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                        />
-                    </Box>
                     <CardHeader
-
                         title={monster.name}
                         action={
                             removeMonsterFromBookmark ? (
@@ -55,37 +51,55 @@ const MonsterCard = ({ monster, index, bookmark, bookmarks, addMonsterToBookmark
                             />)
                         }
                     />
-                    <CardContent onClick={() => handleCardClick(monster.name)}>
-                        <Chip
-                            label={monster.type}
-                            color={getTypeColor(monster.type)}
-                            size="small"
-                            sx={{ mb: 2 }}
-                        />
+                    <IconButton onClick={handleExpandClick}>
+                        {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                    </IconButton>
+                    <Chip
+                        label={monster.type}
+                        color={getTypeColor(monster.type)}
+                        size="small"
+                        sx={{ mb: 2 }}
+                    />
+                    <CardActionArea onClick={() => handleCardClick(monster.name)}>
+                        <CardContent>
 
-                        <Divider sx={{ my: 2 }} />
 
-                        {/* Основная информация */}
-                        <Typography variant="body2" sx={{ mb: 1 }}>
-                            <strong>Размер:</strong> {monster.size}
-                        </Typography>
-                        <Typography variant="body2" sx={{ mb: 1 }}>
-                            <strong>Класс опасности (CR):</strong> {monster.cr}
-                        </Typography>
-                        <Typography variant="body2" sx={{ mb: 1 }}>
-                            <strong>Хиты:</strong> {monster.hp}
-                        </Typography>
-                        <Typography variant="body2" sx={{ mb: 1 }}>
-                            <strong>Скорость:</strong> {monster.speed}
-                        </Typography>
+                            <Collapse in={expanded}>
+                                <Box sx={{ overflow: 'hidden', position: 'relative' }}>
+                                    <CardMedia
+                                        component="img"
+                                        src={`${process.env.PUBLIC_URL}/static/image/monsters/` + monster.imgStaticUrl}
+                                        alt={monster.name}
+                                        sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                    />
+                                </Box>
+                            </Collapse>
 
-                        <Divider sx={{ my: 2 }} />
 
-                        {/* Биомы */}
-                        <Typography variant="body2">
-                            <strong>Биомы:</strong> {monster.bioms.join(', ')}
-                        </Typography>
-                    </CardContent>
+                            <Divider sx={{ my: 2 }} />
+
+                            {/* Основная информация */}
+                            <Typography variant="body2" sx={{ mb: 1 }}>
+                                <strong>Размер:</strong> {monster.size}
+                            </Typography>
+                            <Typography variant="body2" sx={{ mb: 1 }}>
+                                <strong>Класс опасности (CR):</strong> {monster.cr}
+                            </Typography>
+                            <Typography variant="body2" sx={{ mb: 1 }}>
+                                <strong>Хиты:</strong> {monster.hp}
+                            </Typography>
+                            <Typography variant="body2" sx={{ mb: 1 }}>
+                                <strong>Скорость:</strong> {monster.speed}
+                            </Typography>
+
+                            <Divider sx={{ my: 2 }} />
+
+                            {/* Биомы */}
+                            <Typography variant="body2">
+                                <strong>Биомы:</strong> {monster.bioms.join(', ')}
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
                 </Card>
             </Paper>
         </Grid2>

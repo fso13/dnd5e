@@ -3,9 +3,8 @@ import { Card, CardContent, CardHeader, Typography, Grid2, Paper, Divider, Chip,
 import { useNavigate } from 'react-router-dom';
 import BookmarkButton from '../bookmark/BookmarkButton';
 import { Delete } from '@mui/icons-material';
-import {getSchoolColor} from './SpellUtils'
+import { getSchoolColor, getLevelText } from './SpellUtils'
 // Функция для получения цвета школы магии
-
 
 const SpellCard = ({ spell, bookmark, index, bookmarks, addSpellToBookmark, addBookmark, removeSpellFromBookmark }) => {
     const navigate = useNavigate();
@@ -52,7 +51,7 @@ const SpellCard = ({ spell, bookmark, index, bookmarks, addSpellToBookmark, addB
                         <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
                             {spell.school ? (<Chip label={`Школа: ${spell.school}`} color={getSchoolColor(spell.school)} />) : (<div />)}
 
-                            <Chip label={`Уровень: ${spell.level}`} color="secondary" />
+                            <Chip label={getLevelText(spell.level)} color="secondary" />
                         </Stack>
                         <Divider sx={{ my: 2 }} />
 

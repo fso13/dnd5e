@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Typography, Paper, Divider, Chip, Stack } from '@mui/material';
 import BookmarkButton from '../../components/bookmark/BookmarkButton';
-import {getSchoolColor} from '../../components/spells/SpellUtils'
+import { getSchoolColor, getLevelText } from '../../components/spells/SpellUtils'
 
 // Функция для форматирования компонентов
 const formatComponents = (components) => {
@@ -39,7 +39,7 @@ const SpellDetailPage = ({ spells, bookmarks, addSpellToBookmark, addBookmark })
                 {/* Основная информация */}
                 <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
                     {spell.school ? (<Chip label={`Школа: ${spell.school}`} color={getSchoolColor(spell.school)} />) : (<div />)}
-                    <Chip label={`Уровень: ${spell.level}`} color="secondary" />
+                    <Chip label={getLevelText(spell.level)} color="secondary" />
                 </Stack>
 
                 <Divider sx={{ my: 3 }} />

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Box, Typography, Grid2, IconButton, TextField, Button, Paper, Divider, Chip, Modal } from '@mui/material';
+import { Box, Typography, Grid2, IconButton, TextField, Button, Paper, Divider, Chip, Modal, Avatar } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import ConfirmationModal from '../../components/ConfirmationModal'; // Импортируем компонент
-import {getSchoolColor} from '../../components/spells/SpellUtils'
-import {getTypeColor} from '../../components/monsters//MonsterUtils'
+import { getSchoolColor } from '../../components/spells/SpellUtils'
+import { getTypeColor } from '../../components/monsters//MonsterUtils'
 
 
 const BookmarksPage = ({ bookmarks, removeBookmark, removeSpellFromBookmark, removeMonsterFromBookmark, renameBookmark }) => {
@@ -98,6 +98,7 @@ const BookmarksPage = ({ bookmarks, removeBookmark, removeSpellFromBookmark, rem
                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                             {bookmark.spells.map((spell, index) => (
                                 <Chip
+                                    avatar={<Avatar>{spell.level}</Avatar>}
                                     color={getSchoolColor(spell.school)}
                                     key={spell.name.rus}
                                     label={spell.name.rus}
