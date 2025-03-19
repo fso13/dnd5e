@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.18.0](https://github.com/fso13/dnd5e/compare/v1.17.0...v1.18.0) (2025-03-19)
+
+
+### 🔧 Chores
+
+* Обновление зависимостей ([f92ee73](https://github.com/fso13/dnd5e/commit/f92ee737ad39cf415b18bf6ca2420dc913013c67))
+
+
+### 🛠️ Code Refactoring
+
+* Исправил кликабильность, поиск и вынес общие методы ([9511251](https://github.com/fso13/dnd5e/commit/95112518577cb840b77c2b417e60d0a9f353dc82))
+
 ## [1.17.0](https://github.com/fso13/dnd5e/compare/v1.16.0...v1.17.0) (2025-03-18)
 
 
