@@ -54,14 +54,14 @@ function App() {
                     setSpells(sortedSpells);
                     localStorage.setItem(SPELLS_KEY, JSON.stringify(sortedSpells));
 
-                    const monstersResponse = await fetch(`${process.env.PUBLIC_URL}/data/monsters.json`);
+                    const monstersResponse = await fetch(`${process.env.PUBLIC_URL}/data/monsters-new.json`);
                     const monstersData = await monstersResponse.json();
 
 
                     // Сортировка заклинаний по алфавиту и уровню
                     const sortedMonsters = monstersData.sort((a, b) => {
                         // Сначала сортируем по уровню
-                        return a.name.localeCompare(b.name);
+                        return a.name.rus.localeCompare(b.name.rus);
                     });
 
                     setMonsters(sortedMonsters);

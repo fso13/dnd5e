@@ -19,8 +19,6 @@ const MonsterCard = ({ monster, index, bookmark, bookmarks, addMonsterToBookmark
         navigate(`/bestiary/${monsterName}`);
     };
 
-
-
     return (
         <Grid2 item key={index} xs={12} sm={6} md={4}>
             <Paper
@@ -38,10 +36,10 @@ const MonsterCard = ({ monster, index, bookmark, bookmarks, addMonsterToBookmark
             >
                 <Card sx={{ height: '100%' }}>
                     <CardHeader
-                        title={monster.name}
+                        title={monster.name.rus}
                         action={
                             removeMonsterFromBookmark ? (
-                                <IconButton onClick={() => removeMonsterFromBookmark(bookmark.id, monster.name)}>
+                                <IconButton onClick={() => removeMonsterFromBookmark(bookmark.id, monster.name.rus)}>
                                     <Delete />
                                 </IconButton>
                             ) : (<BookmarkButton
@@ -55,49 +53,50 @@ const MonsterCard = ({ monster, index, bookmark, bookmarks, addMonsterToBookmark
                         {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                     </IconButton>
                     <Chip
-                        label={monster.type}
-                        color={getTypeColor(monster.type)}
+                        label={monster.type.name}
+                        color={getTypeColor(monster.type.name)}
                         size="small"
                         sx={{ mb: 2 }}
                     />
-                    <CardActionArea onClick={() => handleCardClick(monster.name)}>
+                    <CardActionArea onClick={() => handleCardClick(monster.name.rus)}>
                         <CardContent>
 
 
-                            <Collapse in={expanded}>
-                                <Box sx={{ overflow: 'hidden', position: 'relative' }}>
-                                    <CardMedia
-                                        component="img"
-                                        src={`${process.env.PUBLIC_URL}/static/image/monsters/` + monster.imgStaticUrl}
-                                        alt={monster.name}
-                                        sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                                    />
-                                </Box>
-                            </Collapse>
-
+                            {monster.images &&
+                                <Collapse in={expanded}>
+                                    <Box sx={{ overflow: 'hidden', position: 'relative' }}>
+                                        <CardMedia
+                                            component="img"
+                                            src={`${process.env.PUBLIC_URL}/static/image/monsternew/` + monster.id + '.webp'}
+                                            alt={monster.name.rus}
+                                            sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                        />
+                                    </Box>
+                                </Collapse>
+                            }
 
                             <Divider sx={{ my: 2 }} />
 
                             {/* Основная информация */}
                             <Typography variant="body2" sx={{ mb: 1 }}>
-                                <strong>Размер:</strong> {monster.size}
+                                <strong>Размер:</strong> {monster.size.rus}
                             </Typography>
                             <Typography variant="body2" sx={{ mb: 1 }}>
-                                <strong>Класс опасности (CR):</strong> {monster.cr}
+                                <strong>Класс опасности (CR):</strong> {monster.challengeRating}
                             </Typography>
                             <Typography variant="body2" sx={{ mb: 1 }}>
-                                <strong>Хиты:</strong> {monster.hp}
+                                <strong>Хиты:</strong> {monster.hits.formula + ' (' + monster.hits.average + ')'}
                             </Typography>
                             <Typography variant="body2" sx={{ mb: 1 }}>
-                                <strong>Скорость:</strong> {monster.speed}
+                                <strong>Скорость:</strong> {monster.speed[0].value}
                             </Typography>
 
                             <Divider sx={{ my: 2 }} />
 
                             {/* Биомы */}
-                            <Typography variant="body2">
-                                <strong>Биомы:</strong> {monster.bioms.join(', ')}
-                            </Typography>
+                            {monster.environment && <Typography variant="body2">
+                                <strong>Места обитания:</strong> {monster.environment.join(', ')}
+                            </Typography>}
                         </CardContent>
                     </CardActionArea>
                 </Card>

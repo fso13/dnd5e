@@ -57,7 +57,6 @@ const MonsterFilter = ({ filters, setFilters }) => {
 
     // Биомы
     const bioms = [
-        'Все',
         'Холмы',
         'Подземье',
         'Побережье',

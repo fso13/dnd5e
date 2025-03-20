@@ -13,9 +13,10 @@ const BestiaryPage = ({ monsters, bookmarks, addMonsterToBookmark, addBookmark }
     // Фильтрация монстров
     const filteredMonsters = monsters.filter(monster => {
         return (
-            (filters.type ? monster.type === filters.type : true) &&
-            (filters.cr ? monster.cr === filters.cr : true) &&
-            (searchTerm ? monster.name.toLowerCase().includes(searchTerm.toLowerCase()) : true)
+            (filters.type ? monster.type.name === filters.type : true) &&
+            (filters.cr ? monster.challengeRating === filters.cr : true) &&
+            (filters.biom ? monster.environment && monster.environment.includes(filters.biom.toLowerCase()) : true) &&
+            (searchTerm ? monster.name.rus.toLowerCase().includes(searchTerm.toLowerCase()) : true)
         );
     });
 
