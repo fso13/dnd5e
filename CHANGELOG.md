@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.19.0](https://github.com/fso13/dnd5e/compare/v1.18.0...v1.19.0) (2025-03-20)
+
+
+### 🛠️ Code Refactoring
+
+* Новый список монстров ([bd28f32](https://github.com/fso13/dnd5e/commit/bd28f3221a023d34b5b3093e537f90087f618b38))
+
 ## [1.18.0](https://github.com/fso13/dnd5e/compare/v1.17.0...v1.18.0) (2025-03-19)
 
 
