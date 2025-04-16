@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, Typography, Grid2, Paper, Divider, Chip, Stack, Box, IconButton } from '@mui/material';
+import { Card, CardContent, CardHeader, Typography, Grid, Paper, Divider, Chip, Stack, Box, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import BookmarkButton from '../bookmark/BookmarkButton';
 import { Delete } from '@mui/icons-material';
@@ -15,7 +15,7 @@ const SpellCard = ({ spell, bookmark, index, bookmarks, addSpellToBookmark, addB
     };
 
 
-    return (<Grid2 item key={index} xs={12} sm={6} md={4}>
+    return (<Grid item key={index} xs={12} sm={6} md={4}>
         <Paper
             elevation={3}
             sx={{
@@ -76,7 +76,7 @@ const SpellCard = ({ spell, bookmark, index, bookmarks, addSpellToBookmark, addB
                 </Box>
             </Card>
         </Paper>
-    </Grid2>
+    </Grid>
 
     );
 };

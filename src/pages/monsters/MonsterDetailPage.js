@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Typography, Paper, Divider, Chip, CardMedia, Grid2, List, ListItem, ListItemText } from '@mui/material';
+import { Box, Typography, Paper, Divider, Chip, CardMedia, Grid, List, ListItem, ListItemText } from '@mui/material';
 import BookmarkButton from '../../components/bookmark/BookmarkButton';
 import { getTypeColor } from '../../components/monsters/MonsterUtils'
 
@@ -58,78 +58,78 @@ const MonsterDetailPage = ({ monsters, bookmarks, addMonsterToBookmark, addBookm
                 </Typography>
 
 
-                <Grid2 container spacing={2}>
-                    <Grid2 item xs={6} sm={4}>
+                <Grid container spacing={2}>
+                    <Grid item xs={6} sm={4}>
                         <Typography variant="body1" sx={{ mb: 2 }}>
                             <strong>Скорость:</strong>
                         </Typography>
-                    </Grid2>
+                    </Grid>
                     {monster.speed.map((speed, index) => (
-                        <Grid2 item xs={6} sm={4}>
+                        <Grid item xs={6} sm={4}>
                             <Typography variant="body1">
                                 <strong>{speed.name ? speed.name + ":" : ""}</strong> {speed.value} фт
                             </Typography>
-                        </Grid2>
+                        </Grid>
                     ))}
-                </Grid2>
+                </Grid>
                 {monster.languages && <Typography variant="body1" sx={{ mb: 2 }}>
                     <strong>Языки:</strong>  {monster.languages.join(', ')}
                 </Typography>}
 
                 <Divider sx={{ my: 3 }} />
-                <Grid2 item xs={12} md={8}>
+                <Grid item xs={12} md={8}>
                     <Typography variant="h5" gutterBottom>
                         Характеристики
                     </Typography>
-                    <Grid2 container spacing={2}>
-                        <Grid2 item xs={6} sm={4}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={6} sm={4}>
                             <Typography variant="body1">
                                 <strong>СИЛ:</strong> {monster.ability.str}
                             </Typography>
-                        </Grid2>
-                        <Grid2 item xs={6} sm={4}>
+                        </Grid>
+                        <Grid item xs={6} sm={4}>
                             <Typography variant="body1">
                                 <strong>ЛОВ:</strong> {monster.ability.dex}
                             </Typography>
-                        </Grid2>
-                        <Grid2 item xs={6} sm={4}>
+                        </Grid>
+                        <Grid item xs={6} sm={4}>
                             <Typography variant="body1">
                                 <strong>ТЕЛ:</strong> {monster.ability.con}
                             </Typography>
-                        </Grid2>
-                        <Grid2 item xs={6} sm={4}>
+                        </Grid>
+                        <Grid item xs={6} sm={4}>
                             <Typography variant="body1">
                                 <strong>ИНТ:</strong> {monster.ability.intellect}
                             </Typography>
-                        </Grid2>
-                        <Grid2 item xs={6} sm={4}>
+                        </Grid>
+                        <Grid item xs={6} sm={4}>
                             <Typography variant="body1">
                                 <strong>МДР:</strong> {monster.ability.wiz}
                             </Typography>
-                        </Grid2>
-                        <Grid2 item xs={6} sm={4}>
+                        </Grid>
+                        <Grid item xs={6} sm={4}>
                             <Typography variant="body1">
                                 <strong>ХАР:</strong> {monster.ability.cha}
                             </Typography>
-                        </Grid2>
-                    </Grid2>
-                </Grid2>
+                        </Grid>
+                    </Grid>
+                </Grid>
 
-                <Grid2 item xs={12} md={8}>
+                <Grid item xs={12} md={8}>
 
                     {monster.skills && <div><Divider sx={{ my: 2 }} />
                         <Typography variant="h5" gutterBottom>
                             Навыки
                         </Typography>
-                        <Grid2 container spacing={2}>
+                        <Grid container spacing={2}>
                             {monster.skills.map((skill, index) => (
-                                <Grid2 item xs={6} sm={4}>
+                                <Grid item xs={6} sm={4}>
                                     <Typography variant="body1">
                                         <strong>{skill.name}:</strong> {skill.value}
                                     </Typography>
-                                </Grid2>
+                                </Grid>
                             ))}
-                        </Grid2>
+                        </Grid>
                     </div>}
                     <Divider sx={{ my: 2 }} />
                     <Typography variant="h5" gutterBottom>
@@ -187,7 +187,7 @@ const MonsterDetailPage = ({ monsters, bookmarks, addMonsterToBookmark, addBookm
                         </div>
                     }
 
-                </Grid2>
+                </Grid>
             </Paper>
         </Box>
     );

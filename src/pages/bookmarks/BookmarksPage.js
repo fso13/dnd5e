@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography, Grid2, IconButton, TextField, Button, Paper, Divider, Chip, Modal, Avatar } from '@mui/material';
+import { Box, Typography, Grid, IconButton, TextField, Button, Paper, Divider, Chip, Modal, Avatar } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -60,7 +60,7 @@ const BookmarksPage = ({ bookmarks, removeBookmark, removeSpellFromBookmark, rem
             <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3 }}>
                 Закладки
             </Typography>
-            <Grid2 container spacing={3}>
+            <Grid container spacing={3}>
                 {bookmarks.map(bookmark => (
                     <Paper
                         key={bookmark.id}
@@ -131,7 +131,7 @@ const BookmarksPage = ({ bookmarks, removeBookmark, removeSpellFromBookmark, rem
                         </Button>
                     </Paper>
                 ))}
-            </Grid2>
+            </Grid>
 
             {/* Модальное окно для переименования */}
             <Modal open={renameModalOpen} onClose={() => setRenameModalOpen(false)}>

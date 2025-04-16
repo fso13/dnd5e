@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Box, Typography, TextField, Button, Grid2, Paper, Chip, Autocomplete, Divider, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { Box, Typography, TextField, Button, Grid, Paper, Chip, Autocomplete, Divider, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { useSnackbar } from 'notistack';
 
 const CharacterSheetPage = () => {
@@ -110,9 +110,9 @@ const CharacterSheetPage = () => {
                 Лист персонажа
             </Typography>
             <Paper elevation={3} sx={{ padding: 1 }}>
-                <Grid2 container spacing={1} >
+                <Grid container spacing={1} >
                     {/* Основная информация */}
-                    <Grid2 item xs={12} md={6} >
+                    <Grid item xs={12} md={6} >
                         <TextField
                             fullWidth
                             label="Имя персонажа"
@@ -121,8 +121,8 @@ const CharacterSheetPage = () => {
                             onChange={handleChange}
                             sx={{ mb: 2 }}
                         />
-                    </Grid2>
-                    <Grid2 item xs={12} md={6}>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
                         <FormControl sx={{ minWidth: 120 }} >
                             <InputLabel>Раса</InputLabel>
                             <Select
@@ -142,9 +142,9 @@ const CharacterSheetPage = () => {
                                 <MenuItem value="Эльф">Эльф</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid2>
+                    </Grid>
 
-                    <Grid2 item xs={12} md={6}>
+                    <Grid item xs={12} md={6}>
                         <FormControl sx={{ minWidth: 120 }} >
                             <InputLabel>Класс</InputLabel>
                             <Select
@@ -166,8 +166,8 @@ const CharacterSheetPage = () => {
                                 <MenuItem value="Магус">Магус</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid2>
-                    <Grid2 item xs={12} md={6} >
+                    </Grid>
+                    <Grid item xs={12} md={6} >
                         <TextField
                             fullWidth
                             label="Уровень"
@@ -176,8 +176,8 @@ const CharacterSheetPage = () => {
                             onChange={handleChange}
                             sx={{ mb: 2 }}
                         />
-                    </Grid2>
-                    <Grid2 item xs={12} md={6} >
+                    </Grid>
+                    <Grid item xs={12} md={6} >
                         <TextField
                             fullWidth
                             label="Бонус мастерства"
@@ -186,16 +186,16 @@ const CharacterSheetPage = () => {
                             onChange={handleChange}
                             sx={{ mb: 2 }}
                         />
-                    </Grid2>
-                </Grid2>
+                    </Grid>
+                </Grid>
                 <Divider sx={{ my: 2 }} />
                 {/* Характеристики */}
                 <Typography variant="h6" sx={{ mb: 2 }}>
                     Характеристики
                 </Typography>
-                <Grid2 container spacing={1} >
+                <Grid container spacing={1} >
 
-                    <Grid2 item xs={12} md={6} >
+                    <Grid item xs={12} md={6} >
                         <TextField
                             fullWidth
                             label="Сила"
@@ -204,8 +204,8 @@ const CharacterSheetPage = () => {
                             onChange={handleChange}
                             sx={{ mb: 2 }}
                         />
-                    </Grid2>
-                    <Grid2 item xs={12} md={6} >
+                    </Grid>
+                    <Grid item xs={12} md={6} >
                         <TextField
                             fullWidth
                             label="Ловкость"
@@ -214,8 +214,8 @@ const CharacterSheetPage = () => {
                             onChange={handleChange}
                             sx={{ mb: 2 }}
                         />
-                    </Grid2>
-                    <Grid2 item xs={12} md={6} >
+                    </Grid>
+                    <Grid item xs={12} md={6} >
                         <TextField
                             fullWidth
                             label="Телосложение"
@@ -224,8 +224,8 @@ const CharacterSheetPage = () => {
                             onChange={handleChange}
                             sx={{ mb: 2 }}
                         />
-                    </Grid2>
-                    <Grid2 item xs={12} md={6} >
+                    </Grid>
+                    <Grid item xs={12} md={6} >
                         <TextField
                             fullWidth
                             label="Интеллект"
@@ -234,8 +234,8 @@ const CharacterSheetPage = () => {
                             onChange={handleChange}
                             sx={{ mb: 2 }}
                         />
-                    </Grid2>
-                    <Grid2 item xs={12} md={6} >
+                    </Grid>
+                    <Grid item xs={12} md={6} >
                         <TextField
                             fullWidth
                             label="Мудрость"
@@ -244,8 +244,8 @@ const CharacterSheetPage = () => {
                             onChange={handleChange}
                             sx={{ mb: 2 }}
                         />
-                    </Grid2>
-                    <Grid2 item xs={12} md={6} >
+                    </Grid>
+                    <Grid item xs={12} md={6} >
                         <TextField
                             fullWidth
                             label="Харизма"
@@ -254,11 +254,11 @@ const CharacterSheetPage = () => {
                             onChange={handleChange}
                             sx={{ mb: 2 }}
                         />
-                    </Grid2>
-                </Grid2>
+                    </Grid>
+                </Grid>
                 <Divider sx={{ my: 2 }} />
                 {/* Навыки, заклинания, инвентарь, описание */}
-                <Grid2 item xs={12}>
+                <Grid item xs={12}>
                     <TextField
                         fullWidth
                         label="Навыки"
@@ -328,7 +328,7 @@ const CharacterSheetPage = () => {
                         rows={4}
                         sx={{ mb: 2 }}
                     />
-                </Grid2>
+                </Grid>
 
                 {/* Кнопка сохранения */}
                 <Button onClick={handleSave} variant="contained" color="primary">

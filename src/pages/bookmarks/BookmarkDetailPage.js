@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Delete, Edit } from '@mui/icons-material';
-import { Box, Typography, IconButton, Divider, Button, Modal, TextField, Grid2 } from '@mui/material';
+import { Box, Typography, IconButton, Divider, Button, Modal, TextField, Grid } from '@mui/material';
 import SpellCard from '../../components/spells/SpellCard';
 import MonsterCard from '../../components/monsters/MonsterCard';
 import ConfirmationModal from '../../components/ConfirmationModal'; // Импортируем компонент
@@ -43,21 +43,21 @@ const BookmarkDetailPage = ({ bookmarks, removeSpellFromBookmark, removeBookmark
     return (
         <Box sx={{ padding: 3 }}>
 
-            <Grid2 sx={{ order: { xs: 2, sm: 1 } }}>
+            <Grid sx={{ order: { xs: 2, sm: 1 } }}>
                 <Typography variant="h4">{bookmark.name}</Typography>
-            </Grid2>
-            <Grid2 container columnSpacing={1} sx={{ order: { xs: 1, sm: 2 } }}>
-                <Grid2>
+            </Grid>
+            <Grid container columnSpacing={1} sx={{ order: { xs: 1, sm: 2 } }}>
+                <Grid>
                     <IconButton onClick={() => setRenameModalOpen(true)}>
                         <Edit />
                     </IconButton>
-                </Grid2>
-                <Grid2>
+                </Grid>
+                <Grid>
                     <IconButton onClick={() => handleDeleteClick(bookmark.id)} >
                         <Delete />
                     </IconButton>
-                </Grid2>
-            </Grid2>
+                </Grid>
+            </Grid>
 
 
             {/* Модальное окно для переименования */}
@@ -78,19 +78,19 @@ const BookmarkDetailPage = ({ bookmarks, removeSpellFromBookmark, removeBookmark
             </Modal>
 
 
-            <Grid2 container spacing={3} justifyContent="center">
+            <Grid container spacing={3} justifyContent="center">
                 {bookmark.spells.map((spell, index) => {
                     return <SpellCard spell={spell} index={index} bookmark={bookmark} bookmarks={bookmarks} removeSpellFromBookmark={removeSpellFromBookmark} addBookmark={addBookmark} addSpellToBookmark={addSpellToBookmark} />
                 })}
-            </Grid2>
+            </Grid>
             {/* Отображение монстров */}
             <Divider sx={{ my: 3 }} />
 
-            <Grid2 container spacing={3} justifyContent="center">
+            <Grid container spacing={3} justifyContent="center">
                 {bookmark.monsters.map((monster, index) => {
                     return <MonsterCard monster={monster} index={index} bookmark={bookmark} bookmarks={bookmarks} addMonsterToBookmark={addMonsterToBookmark} addBookmark={addBookmark} removeMonsterFromBookmark={removeMonsterFromBookmark} />
                 })}
-            </Grid2>
+            </Grid>
 
 
             {/* Модальное окно подтверждения удаления */}

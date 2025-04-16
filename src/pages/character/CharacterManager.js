@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Button, Grid2, Paper, IconButton, Chip, Divider } from '@mui/material';
+import { Box, Typography, Button, Grid, Paper, IconButton, Chip, Divider } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
@@ -97,7 +97,7 @@ const CharacterManager = () => {
                     Создать нового персонажа
                 </Button>
 
-                <Grid2 container spacing={3}>
+                <Grid container spacing={3}>
                     {characters.map((character) => (
                         <Paper
 
@@ -153,7 +153,7 @@ const CharacterManager = () => {
                             </Box>
                         </Paper>
                     ))}
-                </Grid2>
+                </Grid>
             </Paper>
 
             {/* Модальное окно подтверждения удаления */}

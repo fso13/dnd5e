@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Delete } from '@mui/icons-material';
-import { Card, CardMedia, CardHeader, CardContent, Typography, Grid2, Paper, Divider, Chip, Box, IconButton, Collapse, CardActionArea } from '@mui/material';
+import { Card, CardMedia, CardHeader, CardContent, Typography, Grid, Paper, Divider, Chip, Box, IconButton, Collapse, CardActionArea } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import BookmarkButton from '../bookmark/BookmarkButton';
 import { getTypeColor } from './MonsterUtils'
@@ -20,7 +20,7 @@ const MonsterCard = ({ monster, index, bookmark, bookmarks, addMonsterToBookmark
     };
 
     return (
-        <Grid2 item key={index} xs={12} sm={6} md={4}>
+        <Grid item key={index} xs={12} sm={6} md={4}>
             <Paper
                 elevation={3}
                 sx={{
@@ -101,7 +101,7 @@ const MonsterCard = ({ monster, index, bookmark, bookmarks, addMonsterToBookmark
                     </CardActionArea>
                 </Card>
             </Paper>
-        </Grid2>
+        </Grid>
     );
 
 };
