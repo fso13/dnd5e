@@ -117,7 +117,7 @@ function App() {
                 ? { ...bookmark, monsters: [...bookmark.monsters, monster] }
                 : bookmark
         ));
-        enqueueSnackbar(`Монстер "${monster.name}" добавлено в закладки`, { variant: 'success' });
+        enqueueSnackbar(`Монстер "${monster.name.rus}" добавлено в закладки`, { variant: 'success' });
     };
 
     // Удаление заклинания из закладки
@@ -134,7 +134,7 @@ function App() {
     const removeMonsterFromBookmark = (bookmarkId, monsterId) => {
         setBookmarks(bookmarks.map(bookmark =>
             bookmark.id === bookmarkId
-                ? { ...bookmark, monsters: bookmark.monsters.filter(monster => monster.name !== monsterId) }
+                ? { ...bookmark, monsters: bookmark.monsters.filter(monster => monster.name.rus !== monsterId) }
                 : bookmark
         ));
         enqueueSnackbar(`Монстр "${monsterId}" удален из закладки`, { variant: 'error' });

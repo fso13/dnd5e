@@ -112,11 +112,11 @@ const BookmarksPage = ({ bookmarks, removeBookmark, removeSpellFromBookmark, rem
                             {bookmark.monsters.map((monster, index) => (
                                 <Chip
                                     color={getTypeColor(monster.type)}
-                                    key={monster.name}
-                                    label={monster.name}
+                                    key={monster.name.rus}
+                                    label={monster.name.rus}
                                     sx={{ mb: 1 }}
-                                    onClick={() => handleMonsterClick(monster.name)}
-                                    onDelete={() => removeMonsterFromBookmark(bookmark.id, monster.name)}
+                                    onClick={() => handleMonsterClick(monster.name.rus)}
+                                    onDelete={() => removeMonsterFromBookmark(bookmark.id, monster.name.rus)}
                                 />
                             ))}
                         </Box>
