@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.0](https://github.com/fso13/dnd5e/compare/v1.20.0...v1.21.0) (2025-05-07)
+
+
+### 🐛 Fixes
+
+* error add monster by bookmark ([7d60255](https://github.com/fso13/dnd5e/commit/7d602552ea05a0d0e487794bd84cbec81bfdcdb6))
+
+
+### 🔧 Chores
+
+* upgrade dependences ([2d3e782](https://github.com/fso13/dnd5e/commit/2d3e782df476d66d1ba5bb57bef367b804d9ff5c))
+
 ## [1.20.0](https://github.com/fso13/dnd5e/compare/v1.19.0...v1.20.0) (2025-04-16)
 
 
