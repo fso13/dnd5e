@@ -19,7 +19,6 @@ function App() {
     const { enqueueSnackbar } = useSnackbar(); // Хук для уведомлений
     // Ключи для localStorage
     const SPELLS_KEY = 'cached_spells';
-    const MONSTERS_KEY = 'cached_monsters';
     const BOOKMARKS_KEY = 'bookmarks';
 
     // Загрузка данных
@@ -28,13 +27,11 @@ function App() {
             try {
                 // Проверяем, есть ли данные в кэше
                 const cachedSpells = localStorage.getItem(SPELLS_KEY);
-                const cachedMonsters = localStorage.getItem(MONSTERS_KEY);
                 const cachedBookmarks = localStorage.getItem(BOOKMARKS_KEY);
 
-                if (cachedSpells && cachedMonsters) {
+                if (cachedSpells) {
                     // Используем кэшированные данные
                     setSpells(JSON.parse(cachedSpells));
-                    setMonsters(JSON.parse(cachedMonsters));
                 } else {
 
                     // Загружаем данные с сервера
@@ -54,19 +51,20 @@ function App() {
                     setSpells(sortedSpells);
                     localStorage.setItem(SPELLS_KEY, JSON.stringify(sortedSpells));
 
-                    const monstersResponse = await fetch(`${process.env.PUBLIC_URL}/data/monsters-new.json`);
-                    const monstersData = await monstersResponse.json();
 
-
-                    // Сортировка заклинаний по алфавиту и уровню
-                    const sortedMonsters = monstersData.sort((a, b) => {
-                        // Сначала сортируем по уровню
-                        return a.name.rus.localeCompare(b.name.rus);
-                    });
-
-                    setMonsters(sortedMonsters);
-                    localStorage.setItem(MONSTERS_KEY, JSON.stringify(sortedMonsters));
                 }
+
+                const monstersResponse = await fetch(`${process.env.PUBLIC_URL}/data/monsters-new.json`);
+                const monstersData = await monstersResponse.json();
+
+
+                // Сортировка заклинаний по алфавиту и уровню
+                const sortedMonsters = monstersData.sort((a, b) => {
+                    // Сначала сортируем по уровню
+                    return a.name.rus.localeCompare(b.name.rus);
+                });
+
+                setMonsters(sortedMonsters);
 
                 // Загружаем закладки из localStorage
                 if (cachedBookmarks) {
