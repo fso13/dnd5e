@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.23.0](https://github.com/fso13/dnd5e/compare/v1.22.0...v1.23.0) (2025-05-09)
+
+
+### 🚀 Features
+
+* add firebase ([af79f21](https://github.com/fso13/dnd5e/commit/af79f211c2c11e71c60eebb23533ae0875385f17))
+* add firebase ([9e73125](https://github.com/fso13/dnd5e/commit/9e73125f0af5d75d816703e0851efc8b6c8e69a7))
+
 ## [1.22.0](https://github.com/fso13/dnd5e/compare/v1.21.0...v1.22.0) (2025-05-07)
 
 
