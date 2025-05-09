@@ -1,90 +1,131 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Button, Grid, Paper, IconButton, Chip, Divider } from '@mui/material';
+import {
+    Box,
+    Typography,
+    Button,
+    Grid,
+    Paper,
+    IconButton,
+    Chip,
+    Divider,
+    CircularProgress
+} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
-import ConfirmationModal from '../../components/ConfirmationModal'; // Импортируем компонент
+import ConfirmationModal from '../auth/ConfirmationModal';
 import { useSnackbar } from 'notistack';
-import {getSchoolColor} from '../../components/spells/SpellUtils'
+import { getSchoolColor } from '../../components/spells/SpellUtils';
+import { getCharacters, addCharacter, deleteCharacter } from './charactersService';
+import { useAuth } from '../../components/firebase/AuthContext';
 
 const CharacterManager = () => {
     const [characters, setCharacters] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [deletingId, setDeletingId] = useState(null);
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+    const { enqueueSnackbar } = useSnackbar();
+    const { currentUser } = useAuth();
     const navigate = useNavigate();
-    const [characterToDelete, setCharacterToDelete] = useState(null); // Закладка, которую нужно удалить
-    const [deleteModalOpen, setDeleteModalOpen] = useState(false); // Состояние для модального окна удаления
-    const { enqueueSnackbar } = useSnackbar(); // Хук для уведомлений
-    // Обработчик открытия модального окна удаления
+
+    // Загрузка персонажей
+    useEffect(() => {
+        const loadCharacters = async () => {
+            if (!currentUser) return;
+
+            try {
+                setLoading(true);
+                const userCharacters = await getCharacters(currentUser.uid);
+                setCharacters(userCharacters);
+            } catch (error) {
+                console.error('Error loading characters:', error);
+                enqueueSnackbar('Ошибка загрузки персонажей', { variant: 'error' });
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadCharacters();
+    }, [currentUser, enqueueSnackbar]);
+
+    // Обработчики удаления
     const handleDeleteClick = (id) => {
-        setCharacterToDelete(id);
+        setDeletingId(id);
         setDeleteModalOpen(true);
     };
 
-    // Обработчик подтверждения удаления
-    const handleConfirmDelete = () => {
-        if (characterToDelete) {
-            deleteCharacter(characterToDelete); // Удаляем закладку
-            setDeleteModalOpen(false); // Закрываем модальное окно
-            setCharacterToDelete(null); // Сбрасываем состояние
+    const handleConfirmDelete = async () => {
+        if (!deletingId) return;
 
-            enqueueSnackbar(`Персонаж удален`, { variant: 'error' });
+        try {
+            setLoading(true);
+            await deleteCharacter(deletingId);
+            setCharacters(prev => prev.filter(char => char.id !== deletingId));
+            enqueueSnackbar('Персонаж удален', { variant: 'success' });
+        } catch (error) {
+            console.error('Error deleting character:', error);
+            enqueueSnackbar('Ошибка удаления персонажа', { variant: 'error' });
+        } finally {
+            setDeleteModalOpen(false);
+            setDeletingId(null);
+            setLoading(false);
         }
     };
 
-    // Загрузка данных из localStorage
-    useEffect(() => {
-        const savedCharacters = localStorage.getItem('dndCharacters');
-        if (savedCharacters) {
-            setCharacters(JSON.parse(savedCharacters));
+    // Создание нового персонажа
+    const handleAddCharacter = async () => {
+        if (!currentUser) {
+            enqueueSnackbar('Для создания персонажа необходимо войти в систему', { variant: 'error' });
+            return;
         }
-    }, []);
 
-    // Сохранение данных в localStorage
-    const saveCharacters = (updatedCharacters) => {
-        localStorage.setItem('dndCharacters', JSON.stringify(updatedCharacters));
-    };
-
-    // Добавление нового персонажа
-    const addCharacter = () => {
         const newCharacter = {
-            id: Date.now(),
             name: 'Новый персонаж',
             race: '',
             class: '',
-            level: '',
+            level: 1,
             stats: {
-                strength: '',
-                dexterity: '',
-                constitution: '',
-                intelligence: '',
-                wisdom: '',
-                charisma: '',
+                strength: 10,
+                dexterity: 10,
+                constitution: 10,
+                intelligence: 10,
+                wisdom: 10,
+                charisma: 10,
             },
-            proficiencyBonus: '',
+            proficiencyBonus: 2,
             skills: '',
             spells: [],
             inventory: '',
             description: '',
         };
-        const updatedCharacters = [...characters, newCharacter];
-        setCharacters(updatedCharacters);
-        saveCharacters(updatedCharacters);
 
-        enqueueSnackbar(`Персонаж "${newCharacter.name}" создан`, { variant: 'success' });
+        try {
+            setLoading(true);
+            const createdCharacter = await addCharacter(currentUser.uid, newCharacter);
+            setCharacters(prev => [...prev, createdCharacter]);
+            enqueueSnackbar('Персонаж создан', { variant: 'success' });
+
+            // Переход на страницу редактирования нового персонажа
+            navigate(`/character-sheet/${createdCharacter.id}`);
+        } catch (error) {
+            console.error('Error creating character:', error);
+            enqueueSnackbar('Ошибка создания персонажа', { variant: 'error' });
+        } finally {
+            setLoading(false);
+        }
     };
 
-    // Удаление персонажа
-    const deleteCharacter = (id) => {
-        const updatedCharacters = characters.filter(character => character.id !== id);
-        setCharacters(updatedCharacters);
-        saveCharacters(updatedCharacters);
+    const handleSpellClick = (spellName) => {
+        navigate(`/spells/${spellName}`);
     };
 
-    // Обработчик клика по карточке
-    const handleSpellClick = (name) => {
-        navigate(`/spells/${name}`);
-    };
-
-
+    if (loading && characters.length === 0) {
+        return (
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+                <CircularProgress />
+            </Box>
+        );
+    }
 
     return (
         <Box sx={{ padding: 3 }}>
@@ -93,75 +134,77 @@ const CharacterManager = () => {
             </Typography>
 
             <Paper elevation={3} sx={{ padding: 3 }}>
-                <Button variant="contained" color="primary" onClick={addCharacter} sx={{ mb: 3 }}>
-                    Создать нового персонажа
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleAddCharacter}
+                    disabled={loading}
+                    sx={{ mb: 3 }}
+                >
+                    {loading ? 'Создание...' : 'Создать нового персонажа'}
                 </Button>
 
-                <Grid container spacing={3}>
-                    {characters.map((character) => (
-                        <Paper
+                {characters.length === 0 ? (
+                    <Typography>У вас пока нет персонажей</Typography>
+                ) : (
+                    <Grid container spacing={3}>
+                        {characters.map((character) => (
+                            <Grid item xs={12} sm={6} md={4} key={character.id}>
+                                <Paper elevation={3} sx={{ p: 2, height: '100%' }}>
+                                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                                        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                                            {character.name}
+                                        </Typography>
+                                        <Box>
+                                            <IconButton
+                                                onClick={() => navigate(`/character-sheet/${character.id}`)}
+                                                disabled={loading}
+                                            >
+                                                <EditIcon />
+                                            </IconButton>
+                                            <IconButton
+                                                onClick={() => handleDeleteClick(character.id)}
+                                                disabled={loading}
+                                            >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                        </Box>
+                                    </Box>
 
-                            key={character.id}
-                            elevation={3}
-                            sx={{
-                                maxWidth: 400,
-                                mb: 3,
-                                padding: 2,
-                                transition: 'transform 0.2s, box-shadow 0.2s',
-                                '&:hover': {
-                                    transform: 'scale(1.02)',
-                                    boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.2)',
-                                },
-                            }}
-                        >
-                            <Box spacing={5}>
-                                <Box spacing={2} sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                                    <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                                        {character.name}
+                                    <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
+                                        {character.race} {character.class}, уровень {character.level}
                                     </Typography>
-                                    <IconButton spacing={2} edge="end" onClick={() => navigate(`/character-sheet/${character.id}`)}>
-                                        <EditIcon />
-                                    </IconButton>
-                                    <IconButton spacing={2} edge="end" onClick={() => handleDeleteClick(character.id)}>
-                                        <DeleteIcon />
-                                    </IconButton>
-                                </Box>
 
-                                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                                    {character.level}
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                                    {character.class}
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                                    {character.race}
-                                </Typography>
-
-                                <Divider sx={{ my: 2 }} />
-                                <Box spacing={2} sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                                    {character.spells.map((spell, index) => (
-                                        <Chip
-                                            color={getSchoolColor(spell)}
-                                            key={spell}
-                                            label={spell}
-                                            onClick={() => handleSpellClick(spell)}
-                                            sx={{ mb: 1 }}
-                                        />
-                                    ))}
-                                </Box>
-
-                            </Box>
-                        </Paper>
-                    ))}
-                </Grid>
+                                    {character.spells.length > 0 && (
+                                        <>
+                                            <Divider sx={{ my: 2 }} />
+                                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                                                {character.spells.map((spell, index) => (
+                                                    <Chip
+                                                        key={index}
+                                                        label={spell}
+                                                        onClick={() => handleSpellClick(spell)}
+                                                        color={getSchoolColor(spell)}
+                                                        size="small"
+                                                    />
+                                                ))}
+                                            </Box>
+                                        </>
+                                    )}
+                                </Paper>
+                            </Grid>
+                        ))}
+                    </Grid>
+                )}
             </Paper>
 
-            {/* Модальное окно подтверждения удаления */}
             <ConfirmationModal
                 open={deleteModalOpen}
                 onClose={() => setDeleteModalOpen(false)}
                 onConfirm={handleConfirmDelete}
-                message="Вы уверены, что хотите удалить эту закладку?"
+                title="Подтверждение удаления"
+                message="Вы уверены, что хотите удалить этого персонажа?"
+                loading={loading}
             />
         </Box>
     );

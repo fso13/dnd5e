@@ -1,75 +1,92 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Box, Typography, TextField, Button, Grid, Paper, Chip, Autocomplete, Divider, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import {
+    Box, Typography, TextField, Button, Grid, Paper, Chip,
+    Autocomplete, Divider, FormControl, InputLabel, Select, MenuItem
+} from '@mui/material';
 import { useSnackbar } from 'notistack';
+import { getCharacterById, updateCharacter } from './charactersService';
+import { useAuth } from '../../components/firebase/AuthContext';
 
 const CharacterSheetPage = () => {
-    const { id } = useParams(); // Получаем ID персонажа из URL
-    const { enqueueSnackbar } = useSnackbar(); // Хук для уведомлений
+    const { id } = useParams();
+    const { enqueueSnackbar } = useSnackbar();
     const [spellSearch, setSpellSearch] = useState('');
     const [spellResults, setSpellResults] = useState([]);
     const [cachedSpells, setCachedSpells] = useState([]);
-    const [editedCharacter, setEditedCharacter] = useState(null);
+    const [character, setCharacter] = useState(null);
+    const { currentUser } = useAuth();
     const navigate = useNavigate();
-    // Загрузка данных персонажа
-    useEffect(() => {
-        const savedCharacters = JSON.parse(localStorage.getItem('dndCharacters'));
-        const character = savedCharacters.find(char => char.id === parseInt(id));
 
+    useEffect(() => {
+        const loadCharacter = async () => {
+            try {
+                const loadedCharacter = await getCharacterById(id);
+                if (!loadedCharacter) {
+                    navigate('/character-sheet');
+                    enqueueSnackbar('Персонаж не найден', { variant: 'error' });
+                    return;
+                }
+
+                if (loadedCharacter.userId !== currentUser?.uid) {
+                    navigate('/character-sheet');
+                    enqueueSnackbar('Нет доступа к этому персонажу', { variant: 'error' });
+                    return;
+                }
+
+                setCharacter(loadedCharacter);
+            } catch (error) {
+                console.error('Error loading character:', error);
+                enqueueSnackbar('Ошибка загрузки персонажа', { variant: 'error' });
+                navigate('/character-sheet');
+            }
+        };
 
         const cachedSpellsData = localStorage.getItem('cached_spells');
         if (cachedSpellsData) {
             setCachedSpells(JSON.parse(cachedSpellsData));
         }
 
-        if (character) {
-            setEditedCharacter(character);
-        } else {
-            navigate('/'); // Если персонаж не найден, вернуться на главную
+        loadCharacter();
+    }, [id, navigate, enqueueSnackbar, currentUser]);
+
+    const handleSave = async () => {
+        if (!character || !currentUser) return;
+
+        try {
+            await updateCharacter(character.id, {
+                ...character,
+                updatedAt: new Date().toISOString()
+            });
+            enqueueSnackbar('Персонаж сохранен', { variant: 'success' });
+            navigate('/character-sheet');
+        } catch (error) {
+            console.error('Error saving character:', error);
+            enqueueSnackbar('Ошибка сохранения персонажа', { variant: 'error' });
         }
-
-    }, [id, navigate]);
-
-
-    // Обработчик клика по карточке
-    const handleSpellClick = (name) => {
-        navigate(`/spells/${name}`);
-    };
-
-    // Сохранение изменений
-    const handleSave = () => {
-        const savedCharacters = JSON.parse(localStorage.getItem('dndCharacters')) || [];
-        const updatedCharacters = savedCharacters.map(char =>
-            char.id === editedCharacter.id ? editedCharacter : char
-        );
-        localStorage.setItem('dndCharacters', JSON.stringify(updatedCharacters));
-        navigate('/character-sheet'); // Вернуться на главную страницу
-
-        enqueueSnackbar(`Персонаж "${updatedCharacters.name}" сохранен`, { variant: 'success' });
     };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        if (name in editedCharacter.stats) {
-            setEditedCharacter({
-                ...editedCharacter,
+        if (name in character.stats) {
+            setCharacter(prev => ({
+                ...prev,
                 stats: {
-                    ...editedCharacter.stats,
+                    ...prev.stats,
                     [name]: value,
                 },
-            });
+            }));
         } else {
-            setEditedCharacter({
-                ...editedCharacter,
+            setCharacter(prev => ({
+                ...prev,
                 [name]: value,
-            });
+            }));
         }
     };
 
-    // Поиск заклинаний в cached_spells
     const handleSpellSearch = (query) => {
         setSpellSearch(query);
-        if (query.length > 2) {
+        if (query.length > 2 && cachedSpells.length > 0) {
             const filteredSpells = cachedSpells.filter(spell =>
                 spell.name.rus.toLowerCase().includes(query.toLowerCase())
             );
@@ -79,36 +96,37 @@ const CharacterSheetPage = () => {
         }
     };
 
-    // Добавление заклинания в список
     const handleSpellSelect = (spell) => {
-        if (!editedCharacter.spells.includes(spell.name.rus)) {
-            setEditedCharacter((prevCharacter) => ({
-                ...prevCharacter,
-                spells: [...prevCharacter.spells, spell.name.rus], // Добавляем заклинание в список
+        if (!character.spells.includes(spell.name.rus)) {
+            setCharacter(prev => ({
+                ...prev,
+                spells: [...prev.spells, spell.name.rus],
             }));
         }
-        setSpellSearch(''); // Очищаем поле поиска
+        setSpellSearch('');
     };
 
-    // Удаление заклинания из списка
     const handleSpellDelete = (spellToDelete) => {
-        setEditedCharacter((prevCharacter) => ({
-            ...prevCharacter,
-            spells: prevCharacter.spells.filter(spell => spell !== spellToDelete), // Удаляем заклинание
+        setCharacter(prev => ({
+            ...prev,
+            spells: prev.spells.filter(spell => spell !== spellToDelete),
         }));
     };
 
-    if (!editedCharacter) {
-        return <Typography>Загрузка...</Typography>;
+    if (!character) {
+        return (
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+                <Typography>Загрузка...</Typography>
+            </Box>
+        );
     }
 
     return (
-
-
         <Box sx={{ padding: 3 }}>
             <Typography variant="h4" sx={{ mb: 3 }}>
                 Лист персонажа
             </Typography>
+
             <Paper elevation={3} sx={{ padding: 1 }}>
                 <Grid container spacing={1} >
                     {/* Основная информация */}
@@ -117,226 +135,169 @@ const CharacterSheetPage = () => {
                             fullWidth
                             label="Имя персонажа"
                             name="name"
-                            value={editedCharacter.name}
+                            value={character.name}
                             onChange={handleChange}
                             sx={{ mb: 2 }}
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <FormControl sx={{ minWidth: 120 }} >
+                        <FormControl sx={{ minWidth: 120 }}>
                             <InputLabel>Раса</InputLabel>
                             <Select
                                 label="Раса"
                                 name="race"
-                                value={editedCharacter.race}
+                                value={character.race}
                                 onChange={handleChange}
                             >
-                                <MenuItem value="Гном">Гном</MenuItem>
-                                <MenuItem value="Дварф">Дварф</MenuItem>
-                                <MenuItem value="Драконорожденный">Драконорожденный</MenuItem>
-                                <MenuItem value="Полуорк">Полуорк</MenuItem>
-                                <MenuItem value="Полурослик">Полурослик</MenuItem>
-                                <MenuItem value="Полуэльф">Полуэльф</MenuItem>
-                                <MenuItem value="Тифлинг">Тифлинг</MenuItem>
-                                <MenuItem value="Человек">Человек</MenuItem>
-                                <MenuItem value="Эльф">Эльф</MenuItem>
+                                {['Гном', 'Дварф', 'Драконорожденный', 'Полуорк', 'Полурослик',
+                                    'Полуэльф', 'Тифлинг', 'Человек', 'Эльф'].map(race => (
+                                        <MenuItem key={race} value={race}>{race}</MenuItem>
+                                    ))}
                             </Select>
                         </FormControl>
                     </Grid>
-
                     <Grid item xs={12} md={6}>
-                        <FormControl sx={{ minWidth: 120 }} >
+                        <FormControl sx={{ minWidth: 120 }}>
                             <InputLabel>Класс</InputLabel>
                             <Select
                                 label="Класс"
                                 name="class"
-                                value={editedCharacter.class}
+                                value={character.class}
                                 onChange={handleChange}
                             >
-                                <MenuItem value="Жрец">Жрец</MenuItem>
-                                <MenuItem value="Друид">Друид</MenuItem>
-                                <MenuItem value="Бард">Бард</MenuItem>
-                                <MenuItem value="Паладин">Паладин</MenuItem>
-                                <MenuItem value="Следопыт">Следопыт</MenuItem>
-                                <MenuItem value="Чародей">Чародей</MenuItem>
-                                <MenuItem value="Колдун">Колдун</MenuItem>
-                                <MenuItem value="Волшебник">Волшебник</MenuItem>
-                                <MenuItem value="Изобретатель">Изобретатель</MenuItem>
-                                <MenuItem value="Шаман">Шаман</MenuItem>
-                                <MenuItem value="Магус">Магус</MenuItem>
+                                {['Жрец', 'Друид', 'Бард', 'Паладин', 'Следопыт',
+                                    'Чародей', 'Колдун', 'Волшебник', 'Изобретатель',
+                                    'Шаман', 'Магус'].map(cls => (
+                                        <MenuItem key={cls} value={cls}>{cls}</MenuItem>
+                                    ))}
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12} md={6} >
-                        <TextField
+                    <Grid item xs={12} md={6}>
+                        <TextField sx={{ mb: 2 }}
                             fullWidth
                             label="Уровень"
                             name="level"
-                            value={editedCharacter.level}
+                            type="number"
+                            value={character.level}
                             onChange={handleChange}
-                            sx={{ mb: 2 }}
                         />
                     </Grid>
-                    <Grid item xs={12} md={6} >
-                        <TextField
+                    <Grid item xs={12} md={6}>
+                        <TextField sx={{ mb: 2 }}
                             fullWidth
                             label="Бонус мастерства"
                             name="proficiencyBonus"
-                            value={editedCharacter.proficiencyBonus}
+                            type="number"
+                            value={character.proficiencyBonus}
                             onChange={handleChange}
-                            sx={{ mb: 2 }}
                         />
                     </Grid>
                 </Grid>
                 <Divider sx={{ my: 2 }} />
                 {/* Характеристики */}
-                <Typography variant="h6" sx={{ mb: 2 }}>
-                    Характеристики
-                </Typography>
-                <Grid container spacing={1} >
+                <Divider sx={{ my: 2 }} />
+                <Typography variant="h6">Характеристики</Typography>
 
-                    <Grid item xs={12} md={6} >
-                        <TextField
-                            fullWidth
-                            label="Сила"
-                            name="strength"
-                            value={editedCharacter.stats.strength}
-                            onChange={handleChange}
-                            sx={{ mb: 2 }}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={6} >
-                        <TextField
-                            fullWidth
-                            label="Ловкость"
-                            name="dexterity"
-                            value={editedCharacter.stats.dexterity}
-                            onChange={handleChange}
-                            sx={{ mb: 2 }}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={6} >
-                        <TextField
-                            fullWidth
-                            label="Телосложение"
-                            name="constitution"
-                            value={editedCharacter.stats.constitution}
-                            onChange={handleChange}
-                            sx={{ mb: 2 }}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={6} >
-                        <TextField
-                            fullWidth
-                            label="Интеллект"
-                            name="intelligence"
-                            value={editedCharacter.stats.intelligence}
-                            onChange={handleChange}
-                            sx={{ mb: 2 }}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={6} >
-                        <TextField
-                            fullWidth
-                            label="Мудрость"
-                            name="wisdom"
-                            value={editedCharacter.stats.wisdom}
-                            onChange={handleChange}
-                            sx={{ mb: 2 }}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={6} >
-                        <TextField
-                            fullWidth
-                            label="Харизма"
-                            name="charisma"
-                            value={editedCharacter.stats.charisma}
-                            onChange={handleChange}
-                            sx={{ mb: 2 }}
-                        />
-                    </Grid>
+                <Grid container spacing={1} >
+                    {['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'].map(stat => (
+                        <Grid item xs={6} md={4} key={stat}>
+                            <TextField sx={{ mb: 2 }}
+                                fullWidth
+                                label={getStatLabel(stat)}
+                                name={stat}
+                                type="number"
+                                value={character.stats[stat]}
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                    ))}
                 </Grid>
                 <Divider sx={{ my: 2 }} />
-                {/* Навыки, заклинания, инвентарь, описание */}
-                <Grid item xs={12}>
-                    <TextField
-                        fullWidth
-                        label="Навыки"
-                        name="skills"
-                        value={editedCharacter.skills}
-                        onChange={handleChange}
-                        multiline
-                        rows={3}
-                        sx={{ mb: 2 }}
-                    />
-                    <Box sx={{ mb: 2 }}>
-                        <Typography variant="h6" sx={{ mb: 2 }}>
-                            Заклинания
-                        </Typography>
-                        <Autocomplete
-                            freeSolo
-                            options={spellResults.map(spell => spell.name.rus)}
-                            inputValue={spellSearch}
-                            onInputChange={(event, newInputValue) => {
-                                handleSpellSearch(newInputValue);
-                            }}
-                            onChange={(event, newValue) => {
-                                if (newValue) {
-                                    const selectedSpell = spellResults.find(spell => spell.name.rus === newValue);
-                                    if (selectedSpell) {
-                                        handleSpellSelect(selectedSpell);
-                                    }
-                                }
-                            }}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    label="Поиск заклинаний"
-                                    variant="outlined"
-                                />
-                            )}
+                <TextField
+                    fullWidth
+                    label="Навыки"
+                    name="skills"
+                    value={character.skills}
+                    onChange={handleChange}
+                    multiline
+                    rows={3}
+                    sx={{ mb: 2 }}
+                />
+                {/* Заклинания */}
+                <Divider sx={{ my: 2 }} />
+                <Typography variant="h6">Заклинания</Typography>
+
+                <Autocomplete
+                    freeSolo
+                    options={spellResults.map(spell => spell.name.rus)}
+                    inputValue={spellSearch}
+                    onInputChange={(e, value) => handleSpellSearch(value)}
+                    onChange={(e, value) => {
+                        const selectedSpell = spellResults.find(s => s.name.rus === value);
+                        if (selectedSpell) handleSpellSelect(selectedSpell);
+                    }}
+                    renderInput={(params) => (
+                        <TextField {...params} label="Поиск заклинаний" />
+                    )}
+                />
+
+                <Box sx={{ mt: 2, display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                    {character.spells.map((spell, index) => (
+                        <Chip
+                            key={index}
+                            label={spell}
+                            onDelete={() => handleSpellDelete(spell)}
+                            sx={{ mr: 1, mb: 1 }}
                         />
-                        <Box sx={{ mt: 2 }}>
-                            {editedCharacter.spells.map((spell, index) => (
-                                <Chip
-                                    key={index}
-                                    label={spell}
-                                    onClick={() => handleSpellClick(spell)}
-                                    onDelete={() => handleSpellDelete(spell)}
-                                    sx={{ mr: 1, mb: 1 }}
-                                />
-                            ))}
-                        </Box>
-                    </Box>
-                    <TextField
-                        fullWidth
-                        label="Инвентарь"
-                        name="inventory"
-                        value={editedCharacter.inventory}
-                        onChange={handleChange}
-                        multiline
-                        rows={3}
-                        sx={{ mb: 2 }}
-                    />
-                    <TextField
-                        fullWidth
-                        label="Описание"
-                        name="description"
-                        value={editedCharacter.description}
-                        onChange={handleChange}
-                        multiline
-                        rows={4}
-                        sx={{ mb: 2 }}
-                    />
-                </Grid>
+                    ))}
+                </Box>
+
+                <TextField
+                    fullWidth
+                    label="Инвентарь"
+                    name="inventory"
+                    value={character.inventory}
+                    onChange={handleChange}
+                    multiline
+                    rows={3}
+                    sx={{ mb: 2 }}
+                />
+                <TextField
+                    fullWidth
+                    label="Описание"
+                    name="description"
+                    value={character.description}
+                    onChange={handleChange}
+                    multiline
+                    rows={4}
+                    sx={{ mb: 2 }}
+                />
 
                 {/* Кнопка сохранения */}
-                <Button onClick={handleSave} variant="contained" color="primary">
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSave}
+                    sx={{ mt: 2 }}
+                >
                     Сохранить персонажа
                 </Button>
             </Paper>
         </Box>
     );
 };
+
+function getStatLabel(stat) {
+    const labels = {
+        strength: 'Сила',
+        dexterity: 'Ловкость',
+        constitution: 'Телосложение',
+        intelligence: 'Интеллект',
+        wisdom: 'Мудрость',
+        charisma: 'Харизма'
+    };
+    return labels[stat] || stat;
+}
 
 export default CharacterSheetPage;
