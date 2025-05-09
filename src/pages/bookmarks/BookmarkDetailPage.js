@@ -4,7 +4,7 @@ import { Delete, Edit } from '@mui/icons-material';
 import { Box, Typography, IconButton, Divider, Button, Modal, TextField, Grid } from '@mui/material';
 import SpellCard from '../../components/spells/SpellCard';
 import MonsterCard from '../../components/monsters/MonsterCard';
-import ConfirmationModal from '../../components/ConfirmationModal'; // Импортируем компонент
+import ConfirmationModal from '../auth/ConfirmationModal'; // Импортируем компонент
 
 const BookmarkDetailPage = ({ bookmarks, removeSpellFromBookmark, removeBookmark, removeMonsterFromBookmark, renameBookmark, addSpellToBookmark, addBookmark, addMonsterToBookmark }) => {
     const { bookmarkId } = useParams();

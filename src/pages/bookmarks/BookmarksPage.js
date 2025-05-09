@@ -3,7 +3,7 @@ import { Box, Typography, Grid, IconButton, TextField, Button, Paper, Divider, C
 import { Delete, Edit } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import ConfirmationModal from '../../components/ConfirmationModal'; // Импортируем компонент
+import ConfirmationModal from '../auth/ConfirmationModal'; // Импортируем компонент
 import { getSchoolColor } from '../../components/spells/SpellUtils'
 import { getTypeColor } from '../../components/monsters//MonsterUtils'
 

@@ -8,12 +8,12 @@ const BookmarkButton = ({ bookmarks, onAddToBookmark, addBookmark }) => {
 
     return (
         <>
-        <Tooltip title="Добавить в закладку">
+            <Tooltip title="Добавить в закладку">
                 <IconButton onClick={() => setModalOpen(true)} color="primary">
                     <BookmarkBorder />
                 </IconButton>
             </Tooltip>
-            
+
             <BookmarkModal
                 open={modalOpen}
                 onClose={() => setModalOpen(false)}
